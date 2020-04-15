@@ -14,7 +14,7 @@ public class GameBoard{
     
     // create a default table
     public GameBoard(){
-        gameBoard = new Tile[8][8];ss
+        gameBoard = new Tile[8][8];
         initiateEachTile();
     }
 

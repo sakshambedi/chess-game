@@ -8,6 +8,7 @@ public class Controller {
 
     // main method 
     public static void main(String[] args){
-        gameBoard GameBoard = new gameBoard();
+        // making GameBoard object
+        GameBoard gb = new GameBoard();
     }
 }

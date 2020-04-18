@@ -35,21 +35,17 @@ public class Tile {
 
 
     // access xCoords  
-    public int getXCoords(){
-        return xCoord;
-    }
+    public int getXCoords() {return xCoord;}
 
 
     // access yCoords
-    public int getYCoords(){
-        return yCoord;
-    }
+    public int getYCoords() {return yCoord;}
 
 
     // access String value of piece
-    public String getPiece(){
-        return containsPiece;
-    }
+    public String getPiece(){return containsPiece;}
+
+    public void resetTile(){ containsPiece = "empty"; teamName = null;}
 
 
     // set the value of the tile with the correct piece 

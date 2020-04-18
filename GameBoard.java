@@ -25,9 +25,7 @@ public class GameBoard{
     // 
     private void initiateEachTile(){
         for(int row=0; row< 8; row++){
-            for(int column = 0; column <8; column++ ){
-                gameBoard[row][column] =  new Tile(row, column);
-            }
+            for(int column = 0; column <8; column++ ) gameBoard[row][column] =  new Tile(row, column);
         }
 
         // initiate setting up default game chess pieces 
@@ -39,22 +37,75 @@ public class GameBoard{
     // load default chess piece at there correct position after each tile has been initiated with default values 
     public static void initiateDefaultPosition(){
         // for white pawn pieces
-        for (int i=0; i<8; i++) gameBoard[i][2].setChessPiece("pawn","white");
+        // later one for black pieces 
+        for (int i=0; i<8; i++){gameBoard[1][i].setChessPiece("pawn","black") ; 
+                                gameBoard[6][i].setChessPiece("pawn","white");}
 
-        // for black pawns 
-        for (int j=0; j<8; j++) gameBoard[j][7].setChessPiece("pawn","black"); 
+        //******** placing white pieces first ***********
+
+        // for rook 
+        gameBoard[7][0].setChessPiece("rook", "white");
+        gameBoard[7][7].setChessPiece("rook", "white");
+    
+        // for horse 
+        gameBoard[7][1].setChessPiece("horse", "white");
+        gameBoard[7][6].setChessPiece("horse", "white");
+
+        // for bishop
+        gameBoard[7][2].setChessPiece("bishop", "white");
+        gameBoard[7][5].setChessPiece("bishop", "white");
+
+        // queen
+        gameBoard[7][3].setChessPiece("queen", "white");
+         
+        // king 
+        gameBoard[7][4].setChessPiece("king", "white");
+
+
+        // *********** placing black pieces now **************** 
+         
+        // for rook
+        gameBoard[0][0].setChessPiece("rook", "black");
+        gameBoard[0][7].setChessPiece("rook", "black");
+        
+        // for horses 
+        gameBoard[0][1].setChessPiece("horse", "black");
+        gameBoard[0][6].setChessPiece("horse", "black");
+
+        // for bishop 
+        gameBoard[0][2].setChessPiece("bishop", "black");
+        gameBoard[0][5].setChessPiece("bishop", "black");
+
+        // queen 
+        gameBoard[0][4].setChessPiece("queen", "black");
+        
+        // king 
+        gameBoard[0][3].setChessPiece("king", "black"); 
+    }
+
+
+    // print 2d chess in cli
+    private static void printCLIchess(){
+        GameBoard gb = new GameBoard();
+        Tile[][] gbarray = gb.getBoard();
+        gb.initiateEachTile();
+        for(int i =0 ; i< gbarray.length; i++){ 
+            for(int j = 0; j<gbarray[i].length; j++) System.out.printf(" [%6s] ",gbarray[i][j].getPiece());
+            System.out.println("");
+        }
     }
 
 
 
     // main method for debugging 
     public static void main(String[] args){ 
-        GameBoard gb = new GameBoard();
-       // gb.initiateEachTile();
-       Tile[][] gbarray = gb.getBoard();
-       for(int i =0 ; i< gbarray.length; i++){
-           for(int j = 0; j<gbarray[i].length; j++) System.out.println(gbarray[i][j].TileDetails());
-       }      
+        // GameBoard gb = new GameBoard();
+        // gb.initiateEachTile();
+    //    Tile[][] gbarray = gb.getBoard();
+    //    for(int i =0 ; i< gbarray.length; i++){
+    //        for(int j = 0; j<gbarray[i].length; j++) System.out.println(gbarray[i][j].TileDetails());
+    //    } 
+        printCLIchess();     
     }
 
 }

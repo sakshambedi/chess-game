@@ -8,5 +8,8 @@ public class Pawn extends chessPiece{
         super(name, team);
     }
 
+    // movement rules 
+    public void makeMove(String InitialI, String Initialj, String FinalI,String FinalJ){
+    }
 
 }

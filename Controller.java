@@ -3,6 +3,9 @@
 
 
 */
+// ********* Importing Libraries **************
+import java.util.Scanner;
+
 
 public class Controller {
 
@@ -10,18 +13,21 @@ public class Controller {
     public static void main(String[] args){
         // making GameBoard object
         GameBoard gb = new GameBoard();
-        JavaDraw jd = new JavaDraw();
-        GameBoard.initiateDefaultPosition();
-        
-        // calling the basic draw structure 
-        jd.DrawBasicChess();
-        Tile[][] gbarray = gb.getBoard();
-        for(int i =0 ; i<8; i++){
-            for(int j = 0; j<8; j++){
-                System.out.println(gbarray[i][j].TileDetails());
-                // String StringAtTile = gbarray[i][j].getPiece();
-                // System.out.println(StringAtTile);
-                if(gbarray[i][j].getPiece().equals("pawn")) jd.placePawns(i, j);
+
+        // importing gameboard array and storing it 
+        Tile[][] GameArray = gb.getBoard();
+        Pawn Pawn = new Pawn("pawn", "white");
+
+        Scanner importInput = new Scanner(System.in); 
+        int x =0;
+        while(x!=5){
+            System.out.print("Enter the move to mmake :");
+            String enteredMove = importInput.next();
+
+            String[] enteredDataIntoArray = enteredMove.split(" ");
+
+            if((GameArray[Integer.valueOf(enteredDataIntoArray[1])][Integer.valueOf(enteredDataIntoArray[2])]).getPiece().equals("pawn")){
+                Pawn.makeMove(enteredDataIntoArray[0],enteredDataIntoArray[1],enteredDataIntoArray[2],enteredDataIntoArray[3]);
             }
         }
 

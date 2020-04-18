@@ -8,6 +8,9 @@ public class chessPiece {
     private String pieceName;
     private String teamColor; 
 
+    public chessPiece(){
+        
+    }
 
     // contructor for chess Piece 
     public chessPiece(String name,String team){

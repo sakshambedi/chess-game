@@ -86,7 +86,7 @@ public class JavaDraw {
 
     }
 
-    public void placePawns(int i,int j) {
+    public static void placePawns(int i,int j) {
         StdDraw.picture(i + 5, j + 0.5, "\\resources\\chess-pieces-images\\pawn-black.png", 0.4, 0.7);
     }
 

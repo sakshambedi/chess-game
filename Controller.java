@@ -26,9 +26,9 @@ public class Controller {
 
             String[] enteredDataIntoArray = enteredMove.split(" ");
 
-            if((GameArray[Integer.valueOf(enteredDataIntoArray[1])][Integer.valueOf(enteredDataIntoArray[2])]).getPiece().equals("pawn")){
-                Pawn.makeMove(enteredDataIntoArray[0],enteredDataIntoArray[1],enteredDataIntoArray[2],enteredDataIntoArray[3]);
-            }
+            // if((GameArray[Integer.valueOf(enteredDataIntoArray[1])][Integer.valueOf(enteredDataIntoArray[2])]).getPiece().equals("pawn")){
+            //     Pawn.makeMove(enteredDataIntoArray[0],enteredDataIntoArray[1],enteredDataIntoArray[2],enteredDataIntoArray[3]);
+            // }
         }
 
     }

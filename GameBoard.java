@@ -14,7 +14,6 @@ public class GameBoard{
     // create a default table
     public GameBoard(){
         gameBoard = new Tile[8][8];
-        initiateEachTile();
     }
 
 
@@ -23,7 +22,7 @@ public class GameBoard{
 
     // method that initialises each tile with values 
     // 
-    private void initiateEachTile(){
+    public void initiateEachTile(){
         for(int row=0; row< 8; row++){
             for(int column = 0; column <8; column++ ) gameBoard[row][column] =  new Tile(row, column);
         }
@@ -35,7 +34,7 @@ public class GameBoard{
 
 
     // load default chess piece at there correct position after each tile has been initiated with default values 
-    public static void initiateDefaultPosition(){
+    private static void initiateDefaultPosition(){
         // for white pawn pieces
         // later one for black pieces 
         for (int i=0; i<8; i++){gameBoard[1][i].setChessPiece("pawn","black") ; 

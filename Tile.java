@@ -25,9 +25,10 @@ public class Tile {
     
     // method to set the color of the tile 
     public void setChessPiece(String name, String team){
-        chessPiece piece = new chessPiece(name,team);       
+        if (name.equals("pawn")) {
+            chessPiece piece = new pawn(name,team);          
+        }
     }
- 
 
     // public method to return details of the tile
     //  instance method  
@@ -38,8 +39,7 @@ public class Tile {
 
     // method to return the name of the piece on the tile
     public String getPiece(){
-        String tempString = chessPiece.toStringName();
-        return tempString;
+        return chessPiece.toStringName();;
     }
 
 }

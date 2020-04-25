@@ -6,17 +6,17 @@ package chessPieces;
 public class chessPiece {
 
     // private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
-    protected String name;
-    protected String teamColour;
+    private String name;
+    private String teamColour;
 
     // dummy construtor 
     public chessPiece(){
-        name ="empty";
+        name =null;
         teamColour =null;
     }
                                             
     // Constructor 
-    public chessPiece(String name, String teamColor){
+    public void setChessPiece(String name, String teamColor){
         this.name = name;
         this.teamColour = teamColor;
     }

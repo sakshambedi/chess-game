@@ -39,7 +39,7 @@ public class Tile {
 
     // method to return the name of the piece on the tile
     public String getPiece(){
-        return chessPiece.toStringName();;
+        return chessPiece.toStringName();
     }
 
 }

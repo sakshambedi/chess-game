@@ -30,8 +30,7 @@ public class Tile {
         }
     }
 
-    // public method to return details of the tile
-    //  instance method  
+    // public method to return details of the tile 
     public String TileDetails(){
         return "X-value : " + xCoord + "; Y-value : "+ yCoord;
     }
@@ -39,7 +38,7 @@ public class Tile {
 
     // method to return the name of the piece on the tile
     public String getPiece(){
-        return chessPiece.toStringName();
+        return chessPieces.chessPiece.toStringName();
     }
 
 }

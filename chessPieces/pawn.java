@@ -11,25 +11,18 @@ public class pawn extends chessPiece{
 
     // constructors 
     public pawn(String name,String teamString){
-        this.name = name;
-        this.teamColour = teamString;
+        super(name,teamString);
     }
 
     // method that returns name of the piece 
     public String toStringName(){
-        return name;
+        return super.toStringName();
     } 
     
     
     // method that returs the name of the team
     public String toStringTeamName(){
-        return teamColour;
-    }
-
-    // method to set chess piece
-    public void setChessPiece(String name, String team){
-        this.name = name;
-        teamColour = team;
+        return super.toStringTeamName();
     }
 
 

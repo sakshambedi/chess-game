@@ -14,8 +14,14 @@ public class chessPiece {
         name =null;
         teamColour =null;
     }
+
+    // Parameterized constructor
+    public chessPiece(String name, String teamColor ){
+        this.name = name;
+        this.teamColour = teamColor;
+    }
                                             
-    // Constructor 
+    // setting the value of the chess Piece 
     public void setChessPiece(String name, String teamColor){
         this.name = name;
         this.teamColour = teamColor;

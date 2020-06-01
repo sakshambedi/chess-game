@@ -9,14 +9,15 @@ public class extendedException extends Exception{
 
     static final long serialVersionUID = 3387516923124222348L;
 
-    /* UnParamized Cunstructor 
+    /**
+    * Purpose : UnParamized Cunstructor 
     */
     public extendedException(){
         super();
     }
 
-    /* Parametized constructor 
-    * @param - String message 
+    /**  Parametized constructor 
+    * @param message : String message 
     */
     public extendedException(String message){
         super(message);
@@ -28,18 +29,20 @@ public class extendedException extends Exception{
 class SyntaxLengthNotValid extends extendedException{
     static final long serialVersionUID = 3387516923124222348L;
 
-    /* UnParamized Cunstructor 
+    /** 
+    *  UnParamized Cunstructor 
     */
         public SyntaxLengthNotValid(){
         super();
         }
-        /* Parametized constructor 
-        * @param - String message 
+        /** Parametized constructor 
+        *    @param message : String message 
         */
         public SyntaxLengthNotValid(String message){
             super(message);
         }
 }
+
 
 // Exception for y axis
 class YAxisOutOfBoundException extends extendedException{
@@ -51,13 +54,14 @@ class YAxisOutOfBoundException extends extendedException{
     public YAxisOutOfBoundException(){
         super();
     }
-    /* Parametized constructor 
-    * @param - String message 
+    /** Parametized constructor 
+    *   @param message : String message 
     */
     public YAxisOutOfBoundException(String message){
         super(message);
     }
 }
+
 
 // Exception for X axis 
 class XAxisOutOfBoundException extends extendedException{
@@ -67,8 +71,8 @@ class XAxisOutOfBoundException extends extendedException{
     public XAxisOutOfBoundException(){
         super();
     }
-    /* Parametized constructor 
-    * @param - String message 
+    /** Parametized constructor 
+    *   @param message : String message 
     */
     public XAxisOutOfBoundException(String message){
         super(message);

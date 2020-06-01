@@ -1,5 +1,5 @@
-/*
-* tile class stores the location of the tile
+/**
+* Tile class stores the location of the tile
 */
 
 // importing libraries 
@@ -12,30 +12,37 @@ public class Tile {
     private int xCoord;
     private int yCoord;
     private chessPiece piece;
-    // private chessPiece piece = new chessPiece();
     
     
     // default contructor for Tile class 
     public Tile(int XCoordinate,int yCoordinate){
-        xCoord = XCoordinate;
-        yCoord = yCoordinate;
-        piece = new chessPiece();
+        this.xCoord = XCoordinate;
+        this.yCoord = yCoordinate;
+        this.piece = new chessPiece();
         // teamName = null;
         // color =(XCoordinate+yCoordinate)%2; 
     }
     
-    // method to set the color of the tile 
+
+    /**
+     * Purpose : Method to chess piece at the given tile 
+     */
     public void setChessPiece(String name, String team){
-        if (name.equals("pawn"))    piece = new chessPiece(name,team);          
+        if (name.equals("pawn"))    piece = new pawn(name,team);
+        // else if(name.equals("rook"))    piece = new ()       
     }
 
-    // public method to return details of the tile 
+    /**
+     * Purpose :  return String x-coordinates and y-coordinates 
+     */ 
     public String TileDetails(){
         return "X-value : " + xCoord + "; Y-value : "+ yCoord;
     }
 
 
-    // method to return the name of the piece on the tile
+    /**  
+    * Purpose : method to return the name of the piece on the tile
+    */
     public String getPiece(){
         return piece.toStringName();
     }

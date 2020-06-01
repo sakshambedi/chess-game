@@ -1,10 +1,12 @@
-/*
-making a basic game board 
-using tiles to store each tile
-each tile should have the corresponding data : 
-    x-axis : a-h;
-    y-axis : 1-8; 
-    chess piece : what chess piece it holds
+/**
+ * 
+ * making a basic game board 
+ * using tiles to store each tile
+ * each tile should have the corresponding data : 
+ * x-axis : a-h;
+ * y-axis : 1-8; 
+ * chess piece : what chess piece it holds
+ * 
 */
 
 // ---------------- importing libraries ------------
@@ -25,9 +27,10 @@ public class GameBoard{
     // accessor method for GameBoard array 
     public Tile[][] getBoard() {return gameBoard;}
 
-    
-    // method that initialises each tile with values 
-    // 
+
+    /**
+     * Purpose : method that initialises each tile with values 
+     */
     public void initiateEachTile(){
         for(int row=0; row< 8; row++){
             for(int column = 0; column <8; column++ ) gameBoard[row][column] =  new Tile(row, column);
@@ -39,7 +42,9 @@ public class GameBoard{
 
 
 
-    // load default chess piece at there correct position after each tile has been initiated with default values 
+    /**
+     * Purpose : load default chess piece at there correct position after each tile has been initiated with default values 
+    */
     private static void initiateDefaultPosition(){
         // for white pawn pieces
         // later one for black pieces 
@@ -89,7 +94,9 @@ public class GameBoard{
     }
 
 
-    // print 2d chess in cli
+    /**
+     * Purpose : print 2d array chess in cli
+     */
     private static void printCLIchess(){
         GameBoard gb = new GameBoard();
         Tile[][] gbarray = gb.getBoard();

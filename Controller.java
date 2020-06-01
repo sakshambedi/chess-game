@@ -97,10 +97,11 @@ public class Controller {
 
 
 
-    /* method to turn chess language commands to eligble array commands 
-    *  @param - String piece containing a String value and a int value 
-    *           String reps x-axis in alphabets 
-    *           Int reps y-axis 
+    /** 
+    * Purpose : method to turn chess language commands to eligble array commands 
+    *  @param ChessCords : String piece containing a String value and a int value 
+    *                      String reps x-axis in alphabets 
+    *                      Int reps y-axis 
     */
     private static int[] returnCoords(String chessCoords) throws extendedException{ 
         // assigning variables 

@@ -6,6 +6,11 @@ each tile should have the corresponding data :
     y-axis : 1-8; 
     chess piece : what chess piece it holds
 */
+
+// ---------------- importing libraries ------------
+import java.io.PrintStream;
+
+
 public class GameBoard{
 
     // initialising variabls 
@@ -20,6 +25,7 @@ public class GameBoard{
     // accessor method for GameBoard array 
     public Tile[][] getBoard() {return gameBoard;}
 
+    
     // method that initialises each tile with values 
     // 
     public void initiateEachTile(){
@@ -89,8 +95,10 @@ public class GameBoard{
         Tile[][] gbarray = gb.getBoard();
         gb.initiateEachTile();
         for(int i =0 ; i< gbarray.length; i++){ 
-            for(int j = 0; j<gbarray[i].length; j++) System.out.printf(" [%6s] ",gbarray[i][j].getPiece());
-            System.out.println("");
+            for(int j = 0; j<gbarray[i].length; j++) {
+                System.out.printf("[%6s]",gbarray[i][j].getPiece());
+            }
+                System.out.println("");
         }
     }
 

@@ -1,5 +1,7 @@
 package chessPieces;
 
+import java.util.jar.Attributes.Name;
+
 // ****** Importing libraries ****** 
 // import java.util.ArrayList;
 
@@ -11,8 +13,8 @@ public class chessPiece {
 
     // dummy construtor 
     public chessPiece(){
-        name =null;
-        teamColour =null;
+        this.name =null;
+        this.teamColour =null;
     }
 
     // Parameterized constructor
@@ -22,9 +24,15 @@ public class chessPiece {
     }
                                             
     // setting the value of the chess Piece 
-    public void setChessPiece(String name, String teamColor){
+    public void setChessPiece(String name){
         this.name = name;
-        this.teamColour = teamColor;
+    }
+
+
+    public void removeChessPiece(){
+        this.name = null;
+        this.teamColour = null;
+        
     }
 
 

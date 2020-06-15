@@ -1,8 +1,12 @@
-/*
-    public class controller to control the game 
+/*************************************************************
+ **      public class controller to control the game        **
+ **                                                         **
+ **   Author : Saksham Bedi                                 **
+ **   Github : sakshambedi                                  ** 
+ ************************************************************/
 
 
-*/
+
 // ********* Importing Libraries **************
 // import java.util.Arrays;
 import java.util.Arrays;
@@ -10,8 +14,13 @@ import java.util.Scanner;
 import Player.*;
 
 
-public class Controller {
+public class Controller extends Throwable{
 
+    static final long serialVersionUID = 3387516923124222343L;
+    private static int currentPlayerCount = 0 ;
+    private static Player currentPlayer;
+    private static Player player1;
+    private static Player player2;
     // class objects 
     static Scanner scanInput = new Scanner(System.in);
 
@@ -19,94 +28,131 @@ public class Controller {
     public Controller(){
         
     }
-   
-    // main method
+
+    
+    /**
+     *  Purpose : Main Method
+     *  
+     * @param args : String array of arguments
+     *               args[0] is the name of the file
+     *   */
     public static void main(String[] args){
         
-        // making GameBoard object        
+        /**
+         * Initializing everything
+         */         
         GameBoard gb = new GameBoard();
+        buildDefaultPlayers();
+        
         // gb.initiateEachTile();
 
+        if(askForNames()){
+            initiateGamePlay();
+        }
+    }
 
 
-        // importing gameboard array and storing it 
-        // Tile[][] GameArray = gb.getBoard();
+    /**
+     * Purpose : Ask for custom Names 
+     * 
+    */
+    private static boolean askForNames(){
+        System.out.print("Do you want to enter the name of the player (y/n) : ");
+        String userResponse = scanInput.nextLine(); 
+
+        if(userResponse.equals("yes") || userResponse.equals("y")){
+            changePlayerNames();
+            return true; 
+        } else if(userResponse.equals("no") || userResponse.equals("n"))    return true;
+        return askForNames();
+    }
 
 
-        // ask for player Name 
-        askForPlayerName();
-        // method to ask input]
+
+
+    /** 
+     * 
+     * Purpose : Initiate the game player 
+     * 
+     */
+    private static void initiateGamePlay(){
         try{
-            askForInput();
-        }catch(extendedException exE){
+            while(currentPlayerCount <= 5){
+                askForInput();
+                increasePlayerCount();
+                switchPlayer();
+            }      
+        }catch(Exception exE){
             System.out.println(exE.getMessage());
             exE.printStackTrace();
         }
-         
     }
 
 
-    /* This method asks for player name and
-    *
-    */
-    private static void askForPlayerName(){
-        // assigning variables 
-        String tempString;
 
-        //asks if we want to see custom name of the player 
-        System.out.print("Do you want to Enter the name of the player(y/n) : ");
-        tempString = scanInput.nextLine();
-    
+    /**
+     * Purpose : Make default player type objects 
+     *    
+     */
+    private static void buildDefaultPlayers(){     
+        player1 = new Player1();
+        player2 = new Player2();
+        currentPlayer = player1;
+    } 
+
+
+
+    /**  
+     * Purpose : This method asks for player name and
+     *
+     */
+    private static void changePlayerNames(){
+       
+        // asks for name of the white and the black players and makes player objects
+        System.out.print("Enter the name of the player for white pieces : ");
+        String playerName = scanInput.nextLine();
+        player1.setPlayerName(playerName);
+
+        System.out.print("Enter the name of the playes for black pieces : ");
+        playerName = scanInput.nextLine();
+        player2.setPlayerName(playerName);
         
-        // if yes or y is entered 
-        if (tempString.equals("yes") || tempString.equals("y")){
-            // asks for name of the white and the black players and makes player objects
-            System.out.print("Enter the name of the Player 1(white) : ");
-            String playerName = scanInput.nextLine();
-            Player player1 = new Player1(playerName);
-
-            System.out.print("Enter the name of the Player 2(black) : ");
-            playerName = scanInput.nextLine();
-            Player player2 = new Player2(playerName);
-        }else if (tempString.equals("no") || tempString.equals("n")) {
-            // makes 2 player objects with default names 
-            Player player1 = new Player1();
-            Player player2 = new Player2();
-        }else{
-            System.out.println("Invalid Resonse");
-        }
-
     }
 
 
-    /* method that askes for user input and then calls method to verify the 
-    ** command entered by the user
+    /** 
+    * Purpose :  method that asks for user input and then calls method to verify the 
+    *            command entered by the user
     */
-    private static void askForInput() throws extendedException{
-        System.out.print("Enter the command line : ");
+    public static String[] askForInput(){
+        System.out.print("Enter the command line for " + currentPlayer.getPlayerName() + ": ");
         String cmdEntered = scanInput.nextLine();
         String[] cmdEnteredArray = cmdEntered.split(" ");
-        int[]tempIntArray;
+        // int[] tempIntArray;
 
+        // System.out.println(Arrays.toString(cmdEnteredArray));
         if(cmdEnteredArray.length==3){
-            System.out.println(Arrays.toString(tempIntArray=returnCoords(cmdEnteredArray[1])));
-            System.out.println(Arrays.toString(tempIntArray=returnCoords(cmdEnteredArray[2])));
-        }else throw new SyntaxLengthNotValid("\nInvalid Syntax !\n" + "Make sure the syntax contains the following :\n<piece name> <initial location of piece> <final position of piece>\n");
+            int[] tempIntArray;
+            System.out.println(Arrays.toString(tempIntArray=returnCoords(cmdEnteredArray[1])) );
+            System.out.println(Arrays.toString(tempIntArray=returnCoords(cmdEnteredArray[2])) );
+        }else cmdEnteredArray = askForInput();
+        return cmdEnteredArray;
     }
          
 
 
 
     /** 
-    * Purpose : method to turn chess language commands to eligble array commands 
+    * Purpose : method to turn chess language commands to eligible array commands 
     *  @param ChessCords : String piece containing a String value and a int value 
     *                      String reps x-axis in alphabets 
     *                      Int reps y-axis 
     */
-    private static int[] returnCoords(String chessCoords) throws extendedException{ 
+    private static int[] returnCoords(String chessCoords) { 
         // assigning variables 
         String xCoord = String.valueOf(chessCoords.charAt(0));
         String yCoord = String.valueOf(chessCoords.charAt(1));
+        // System.out.println(xCoord + " " +yCoord);
         // int[] Coords;
         
         int[] Coords = {returnMapXIndex(xCoord),returnMapYIndex(yCoord)};
@@ -116,11 +162,12 @@ public class Controller {
     } 
 
 
-    /* method to convert the commands to a array 
-    * @param  pos is the String value of the string part of the position 
-    * tested with all cases and working until it is a string param
+
+    /** method to convert the commands to a array 
+    * @param xpos : It is the String value of the string part of the position 
+    *               tested with all cases and working until it is a string param
     */
-    private static int returnMapXIndex(String xpos)throws XAxisOutOfBoundException{
+    private static int returnMapXIndex(String xpos){
         // initiating variable
         String tempChar = String.valueOf(xpos.charAt(0));     
         
@@ -132,23 +179,47 @@ public class Controller {
         else if (tempChar.equals("f")) return 5;
         else if (tempChar.equals("g")) return 6;
         else if (tempChar.equals("h")) return 7;
-        else throw new XAxisOutOfBoundException("Invalid X-Axis !\nThe X-Axis value only exist between a to h.");
+        else System.out.println("Invalid X-Axis !\nThe X-Axis value only exist between a to h.");
+        return -1;
     }
 
 
-    /* method to convert the commands to a array 
-    * @param  pos is the String value of the string part of the position 
-    * tested with all cases and working until it is a string param
+    /** method to convert the commands to a array 
+    * @param ypos : It is the String value of the string part of the position 
+    *               tested with all cases and working until it is a string param
     */
-    private static int returnMapYIndex(String ypos) throws YAxisOutOfBoundException{
+    private static int returnMapYIndex(String ypos){
         // initiating variable
-        int tempInt = Integer.valueOf(ypos.charAt(1));
+        int tempInt = Integer.valueOf(ypos);
 
-        if(tempInt>0 || tempInt<8) return tempInt-1;
-        else throw new YAxisOutOfBoundException("Invalid Y-Axis !\nThe Y-Axis value only exist between 1 to 8.");
-        
-
+        if(tempInt>0 && tempInt<8) return 7-(tempInt-1);
+        else System.out.println("Invalid Y-Axis !\nThe Y-Axis value only exist between 1 to 8.");
+        return -1;
     } 
+
+
+
+    /**
+     * Purpose : Increament the value of the currentPlayerCount int variable 
+     * 
+     **/
+    private static void increasePlayerCount(){
+        currentPlayerCount++;
+    }
+
+
+    /**
+     * Purpose : To set the current player to alternative  
+     *           only if the right statement is entered 
+     *  
+     * @param player1 : Player that owns the white pieces 
+     * @param player2 : Player that owns the black pieces
+     **/
+    private static void switchPlayer(){
+        if(currentPlayerCount%2==0 )    currentPlayer = player1;
+        else    currentPlayer = player2;
+    }
+
 
 
     /* method to check the value of y-axis is correct or not 

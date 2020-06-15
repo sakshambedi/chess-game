@@ -1,9 +1,9 @@
-    /*
-@
-Player2 Class
-Player class used to return X as the weapon
-@
- */
+/**
+ *  Player2 Class
+ *
+ * 
+ * 
+*/
 package Player;
 
 
@@ -14,15 +14,16 @@ public class Player2 extends Player{
     
         // Constructor class 
         public Player2(){
-            teamName = "black";
-            Name = "Player 2";
+            this.teamName = "black";
+            this.Name = "Player 2";
         }
     
     
-        // constructor with given name for Player 2 class 
-        public Player2(String Name){
+        /**
+         * Method to change player name
+          */
+        public void setPlayerName(String Name){
             this.Name = Name;
-            teamName = "black";
         }
     
     
@@ -32,7 +33,7 @@ public class Player2 extends Player{
         }
     
         // method to return player name
-        public String toStringName(){
+        public String getPlayerName(){
             return Name;
         }
     

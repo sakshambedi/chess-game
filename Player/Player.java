@@ -18,14 +18,16 @@ public class Player{
 
     // Constructor class 
     public Player(){
+        this.Name = null;
+        this.teamName = null;
     }
 
-    public Player(String name){
-        
+    public void setPlayerName(String name){
+        this.Name = name;
     }
 
     // method to return weapon 
-    public String toStringName(){
+    public String getPlayerName(){
         return null;
     }
 

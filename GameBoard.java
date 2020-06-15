@@ -10,7 +10,6 @@
 */
 
 // ---------------- importing libraries ------------
-import java.io.PrintStream;
 
 
 public class GameBoard{
@@ -18,10 +17,11 @@ public class GameBoard{
     // initialising variabls 
     public static Tile[][] gameBoard; 
     
-    // create a default table
-    public GameBoard(){
-        gameBoard = new Tile[8][8];
-    }
+
+    /**
+     * Purpose : create a 2d array 
+     */
+    public GameBoard(){ gameBoard = new Tile[8][8]; }
 
 
     // accessor method for GameBoard array 
@@ -35,8 +35,6 @@ public class GameBoard{
         for(int row=0; row< 8; row++){
             for(int column = 0; column <8; column++ ) gameBoard[row][column] =  new Tile(row, column);
         }
-
-        // initiate setting up default game chess pieces 
         initiateDefaultPosition();
     }
 
@@ -44,8 +42,8 @@ public class GameBoard{
 
     /**
      * Purpose : load default chess piece at there correct position after each tile has been initiated with default values 
-    */
-    private static void initiateDefaultPosition(){
+     */
+    protected static void initiateDefaultPosition(){
         // for white pawn pieces
         // later one for black pieces 
         for (int i=0; i<8; i++){gameBoard[1][i].setChessPiece("pawn","black") ; 
@@ -97,7 +95,7 @@ public class GameBoard{
     /**
      * Purpose : print 2d array chess in cli
      */
-    private static void printCLIchess(){
+    private void printCLIchess(){
         GameBoard gb = new GameBoard();
         Tile[][] gbarray = gb.getBoard();
         gb.initiateEachTile();
@@ -113,13 +111,13 @@ public class GameBoard{
 
     // main method for debugging 
     public static void main(String[] args){ 
-        // GameBoard gb = new GameBoard();
-        // gb.initiateEachTile();
+        GameBoard gb = new GameBoard();
+        gb.initiateEachTile();
     //    Tile[][] gbarray = gb.getBoard();
     //    for(int i =0 ; i< gbarray.length; i++){
     //        for(int j = 0; j<gbarray[i].length; j++) System.out.println(gbarray[i][j].TileDetails());
     //    } 
-        printCLIchess();     
+        gb.printCLIchess();     
     }
 
 }

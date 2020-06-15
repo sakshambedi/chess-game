@@ -1,7 +1,11 @@
 /**
-* Tile class stores the location of the tile
-*/
+ * 
+ * Tile class stores the location of the tile
+ * 
+ * 
+ */
 
+ 
 // importing libraries 
 import chessPieces.*;
 

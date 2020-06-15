@@ -1,6 +1,13 @@
-package chessPieces;
+/**
+ * 
+ * Dummy Class for chess Pieces  
+ * 
+ * 
+ * 
+*/
 
-import java.util.jar.Attributes.Name;
+
+package chessPieces;
 
 // ****** Importing libraries ****** 
 // import java.util.ArrayList;
@@ -13,8 +20,8 @@ public class chessPiece {
 
     // dummy construtor 
     public chessPiece(){
-        this.name =null;
-        this.teamColour =null;
+        this.name = null;
+        this.teamColour = null;
     }
 
     // Parameterized constructor

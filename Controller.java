@@ -72,16 +72,16 @@ public class Controller extends Throwable{
 
     /** 
      * 
-     * Purpose : Initiate the game player 
+     * Purpose : Initiate the game play 
      * 
      */
     private static void initiateGamePlay(){
         try{
             while(currentPlayerCount <= 5){
-                askForInput();
+                int[][] coordinates =  askForInput();
                 increasePlayerCount();
-                switchPlayer();
-            }      
+                switchPlayer();   
+            }
         }catch(Exception exE){
             System.out.println(exE.getMessage());
             exE.printStackTrace();
@@ -124,21 +124,43 @@ public class Controller extends Throwable{
     * Purpose :  method that asks for user input and then calls method to verify the 
     *            command entered by the user
     */
-    public static String[] askForInput(){
+    public static int[][] askForInput(){
         System.out.print("Enter the command line for " + currentPlayer.getPlayerName() + ": ");
         String cmdEntered = scanInput.nextLine();
         String[] cmdEnteredArray = cmdEntered.split(" ");
-        // int[] tempIntArray;
+        int[][]  arrayOfCoordinates = new int[2][1];
 
         // System.out.println(Arrays.toString(cmdEnteredArray));
         if(cmdEnteredArray.length==3){
-            int[] tempIntArray;
-            System.out.println(Arrays.toString(tempIntArray=returnCoords(cmdEnteredArray[1])) );
-            System.out.println(Arrays.toString(tempIntArray=returnCoords(cmdEnteredArray[2])) );
-        }else cmdEnteredArray = askForInput();
-        return cmdEnteredArray;
+            int[] tempIntArray = returnCoords(cmdEnteredArray[1]);
+            System.out.println(Arrays.toString(tempIntArray));
+            arrayOfCoordinates[0]  = tempIntArray;
+            
+            tempIntArray=returnCoords(cmdEnteredArray[2]);
+            System.out.println(Arrays.toString(tempIntArray));
+            arrayOfCoordinates[1] = tempIntArray;
+            if(!thereIsNoNegativeValue(arrayOfCoordinates))    arrayOfCoordinates = askForInput();
+        }
+        else arrayOfCoordinates = askForInput();
+        return arrayOfCoordinates;
     }
          
+
+
+
+    /**
+     * Purpose :  To check if there is no negative value in the given int array 
+     * 
+     * @param coordsArray : Array of coordinates
+    */
+    private static boolean thereIsNoNegativeValue(int[][] coordsArray){
+        for(int[] row : coordsArray){
+            for (int eachElement : row ){
+                if (eachElement == -1)   return false;
+            }
+        }
+        return true;
+    }
 
 
 
@@ -149,15 +171,12 @@ public class Controller extends Throwable{
     *                      Int reps y-axis 
     */
     private static int[] returnCoords(String chessCoords) { 
-        // assigning variables 
         String xCoord = String.valueOf(chessCoords.charAt(0));
         String yCoord = String.valueOf(chessCoords.charAt(1));
         // System.out.println(xCoord + " " +yCoord);
-        // int[] Coords;
         
         int[] Coords = {returnMapXIndex(xCoord),returnMapYIndex(yCoord)};
 
-        // send this xCoords string to return Map index 
         return Coords;
     } 
 
@@ -179,8 +198,7 @@ public class Controller extends Throwable{
         else if (tempChar.equals("f")) return 5;
         else if (tempChar.equals("g")) return 6;
         else if (tempChar.equals("h")) return 7;
-        else System.out.println("Invalid X-Axis !\nThe X-Axis value only exist between a to h.");
-        return -1;
+        else    return -1;
     }
 
 
@@ -193,8 +211,7 @@ public class Controller extends Throwable{
         int tempInt = Integer.valueOf(ypos);
 
         if(tempInt>0 && tempInt<8) return 7-(tempInt-1);
-        else System.out.println("Invalid Y-Axis !\nThe Y-Axis value only exist between 1 to 8.");
-        return -1;
+        else    return -1;
     } 
 
 

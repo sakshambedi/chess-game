@@ -3,14 +3,14 @@ package chessPieces;
 //**********importing libraries*************** 
 import java.util.ArrayList;
 
-public class pawn extends chessPiece{
+public class horse extends chessPiece{
 
     protected String name;
     protected String teamColour;
     private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
 
     // constructors 
-    public pawn(String name,String teamString){
+    public horse(String name,String teamString){
         super(name,teamString);
     }
 
@@ -35,7 +35,7 @@ public class pawn extends chessPiece{
      * @param i : X coordinates 
      * @param j : Y Coordintes 
      */
-    public ArrayList<int[]> getPossibleMoves(int i,int j){
+    public ArrayList<int[]> getpossibleMoves(int i,int j){
         int[] tempArray = new int[2];
         
         if (this.teamColour.equals("white"))    tempArray[0] = i+1;

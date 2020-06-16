@@ -5,12 +5,11 @@
  **   Github : sakshambedi                                  ** 
  ************************************************************/
 
-
-
 // ********* Importing Libraries **************
 // import java.util.Arrays;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Stream;
 import Player.*;
 
 
@@ -42,12 +41,25 @@ public class Controller extends Throwable{
          * Initializing everything
          */         
         GameBoard gb = new GameBoard();
+        gb.printCLIchess();
         buildDefaultPlayers();
-        
+        int[][] mapCoords = new int[2][1];
         // gb.initiateEachTile();
 
         if(askForNames()){
-            initiateGamePlay();
+            while(currentPlayerCount <= 5){
+                String[][] arrayOfCommands =  askForInput();
+                // makeMove(arrayofCommand);
+                mapCoords[0] = Stream.of(arrayOfCommands[1]).mapToInt(Integer::parseInt).toArray();
+                mapCoords[1] = Stream.of(arrayOfCommands[2]).mapToInt(Integer::parseInt).toArray();
+                for (int[] elements : mapCoords)    System.out.println(Arrays.toString(elements));
+
+
+                if( (gb.getChessPieceName( mapCoords[0][0] , mapCoords[0][1] )).equals("pawn") ) System.out.println("Shit Works !");
+                // for (int[] tempIntArray : mapCoords) System.out.println(Arrays.toString(tempIntArray));
+                increasePlayerCount();
+                switchPlayer();
+            } 
         }
     }
 
@@ -65,27 +77,6 @@ public class Controller extends Throwable{
             return true; 
         } else if(userResponse.equals("no") || userResponse.equals("n"))    return true;
         return askForNames();
-    }
-
-
-
-
-    /** 
-     * 
-     * Purpose : Initiate the game play 
-     * 
-     */
-    private static void initiateGamePlay(){
-        try{
-            while(currentPlayerCount <= 5){
-                int[][] coordinates =  askForInput();
-                increasePlayerCount();
-                switchPlayer();   
-            }
-        }catch(Exception exE){
-            System.out.println(exE.getMessage());
-            exE.printStackTrace();
-        }
     }
 
 
@@ -124,21 +115,23 @@ public class Controller extends Throwable{
     * Purpose :  method that asks for user input and then calls method to verify the 
     *            command entered by the user
     */
-    public static int[][] askForInput(){
+    public static String[][] askForInput(){
         System.out.print("Enter the command line for " + currentPlayer.getPlayerName() + ": ");
         String cmdEntered = scanInput.nextLine();
         String[] cmdEnteredArray = cmdEntered.split(" ");
-        int[][]  arrayOfCoordinates = new int[2][1];
+        String[][]  arrayOfCoordinates = new String[3][1];
 
         // System.out.println(Arrays.toString(cmdEnteredArray));
         if(cmdEnteredArray.length==3){
-            int[] tempIntArray = returnCoords(cmdEnteredArray[1]);
-            System.out.println(Arrays.toString(tempIntArray));
-            arrayOfCoordinates[0]  = tempIntArray;
+            arrayOfCoordinates[0][0] = cmdEnteredArray[0];
+
+            String[] tempIntArray = returnCoords(cmdEnteredArray[1]);
+            arrayOfCoordinates[1]  = tempIntArray;
             
             tempIntArray=returnCoords(cmdEnteredArray[2]);
-            System.out.println(Arrays.toString(tempIntArray));
-            arrayOfCoordinates[1] = tempIntArray;
+            arrayOfCoordinates[2] = tempIntArray;
+
+            // for(String[] element : arrayOfCoordinates)    System.out.println(Arrays.toString(element));
             if(!thereIsNoNegativeValue(arrayOfCoordinates))    arrayOfCoordinates = askForInput();
         }
         else arrayOfCoordinates = askForInput();
@@ -153,10 +146,10 @@ public class Controller extends Throwable{
      * 
      * @param coordsArray : Array of coordinates
     */
-    private static boolean thereIsNoNegativeValue(int[][] coordsArray){
-        for(int[] row : coordsArray){
-            for (int eachElement : row ){
-                if (eachElement == -1)   return false;
+    private static boolean thereIsNoNegativeValue(String[][] coordsArray){
+        for(String[] row : coordsArray){
+            for (String eachElement :  row){
+                if (eachElement.equals("-1"))   return false;
             }
         }
         return true;
@@ -170,12 +163,12 @@ public class Controller extends Throwable{
     *                      String reps x-axis in alphabets 
     *                      Int reps y-axis 
     */
-    private static int[] returnCoords(String chessCoords) { 
+    private static String[] returnCoords(String chessCoords) { 
         String xCoord = String.valueOf(chessCoords.charAt(0));
         String yCoord = String.valueOf(chessCoords.charAt(1));
         // System.out.println(xCoord + " " +yCoord);
         
-        int[] Coords = {returnMapXIndex(xCoord),returnMapYIndex(yCoord)};
+        String[] Coords = {String.valueOf(returnMapXIndex(xCoord)),String.valueOf(returnMapYIndex(yCoord))};
 
         return Coords;
     } 
@@ -239,13 +232,13 @@ public class Controller extends Throwable{
 
 
 
-    /* method to check the value of y-axis is correct or not 
+    /* Purpose : Make a move and  
     *  @param - y-axis int value which  
     *
     */
-
-    // private void makeMove(){
-
-    // }
+    private static void makeMove(String[][] arrayOfCommands){
+        
+        
+    }
 
 }

@@ -15,7 +15,7 @@
 public class GameBoard{
 
     // initialising variabls 
-    public static Tile[][] gameBoard; 
+    private static Tile[][] gameBoard; 
     
 
     /**
@@ -92,10 +92,18 @@ public class GameBoard{
     }
 
 
+
+    /**  */
+    public boolean ifChessePieceAt(int i, int j){
+        return gameBoard[i][j].isPieceHere();
+    }
+
+
+
     /**
      * Purpose : print 2d array chess in cli
-     */
-    private void printCLIchess(){
+     **/
+    protected void printCLIchess(){
         GameBoard gb = new GameBoard();
         Tile[][] gbarray = gb.getBoard();
         gb.initiateEachTile();
@@ -105,6 +113,26 @@ public class GameBoard{
             }
                 System.out.println("");
         }
+    }
+
+
+
+    /** 
+     * Purpose : Get the name of the chess piece at the given tile coords 
+     * 
+     * @param i : Int value of x-axis for 2d array
+     * @param j : Int value of y-axis for 2d array 
+     * 
+     **/
+    public String getChessPieceName(int i, int j){
+        return gameBoard[i][j].getPiece();
+    }
+
+
+
+    /**  */
+    public void makeMove(int[] arrayOfCommands){
+
     }
 
 

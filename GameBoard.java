@@ -21,10 +21,15 @@ public class GameBoard{
     /**
      * Purpose : create a 2d array 
      */
-    public GameBoard(){ gameBoard = new Tile[8][8]; }
+    public GameBoard(){ 
+        gameBoard = new Tile[8][8];
+        initiateEachTile(); 
+    }
 
 
-    // accessor method for GameBoard array 
+    /**
+     * Purpose :  accessor method for GameBoard array
+     **/ 
     public Tile[][] getBoard() {return gameBoard;}
 
 
@@ -49,7 +54,7 @@ public class GameBoard{
         for (int i=0; i<8; i++){gameBoard[1][i].setChessPiece("pawn","black") ; 
                                 gameBoard[6][i].setChessPiece("pawn","white");}
 
-        //******** placing white pieces first ***********
+        //************* placing white pieces first ***************
 
         // for rook 
         gameBoard[7][0].setChessPiece("rook", "white");
@@ -93,7 +98,13 @@ public class GameBoard{
 
 
 
-    /**  */
+    /** 
+     * Purpose : To Check if the there is a chessPiece is there on the tile
+     *
+     * @param i : x axis of 2d Array
+     * @param j : y axis of 2d Array
+     *  
+     */
     public boolean ifChessePieceAt(int i, int j){
         return gameBoard[i][j].isPieceHere();
     }
@@ -104,14 +115,11 @@ public class GameBoard{
      * Purpose : print 2d array chess in cli
      **/
     protected void printCLIchess(){
-        GameBoard gb = new GameBoard();
-        Tile[][] gbarray = gb.getBoard();
-        gb.initiateEachTile();
-        for(int i =0 ; i< gbarray.length; i++){ 
-            for(int j = 0; j<gbarray[i].length; j++) {
-                System.out.printf("[%6s]",gbarray[i][j].getPiece());
+        for(int i = 0 ; i< gameBoard.length; i++){ 
+            for(int j = 0; j<gameBoard[i].length; j++) {
+                System.out.printf("[%6s]",gameBoard[i][j].getPieceName());
             }
-                System.out.println("");
+            System.out.println("");
         }
     }
 
@@ -124,8 +132,8 @@ public class GameBoard{
      * @param j : Int value of y-axis for 2d array 
      * 
      **/
-    public String getChessPieceName(int i, int j){
-        return gameBoard[i][j].getPiece();
+    public String getChessPiece(int i, int j){
+        return gameBoard[i][j].getPieceName();
     }
 
 
@@ -138,14 +146,14 @@ public class GameBoard{
 
 
     // main method for debugging 
-    public static void main(String[] args){ 
-        GameBoard gb = new GameBoard();
-        gb.initiateEachTile();
-    //    Tile[][] gbarray = gb.getBoard();
-    //    for(int i =0 ; i< gbarray.length; i++){
-    //        for(int j = 0; j<gbarray[i].length; j++) System.out.println(gbarray[i][j].TileDetails());
-    //    } 
-        gb.printCLIchess();     
-    }
+    // public static void main(String[] args){ 
+    //     GameBoard gb = new GameBoard();
+    //     gb.initiateEachTile();
+    // //    Tile[][] gbarray = gb.getBoard();
+    // //    for(int i =0 ; i< gbarray.length; i++){
+    // //        for(int j = 0; j<gbarray[i].length; j++) System.out.println(gbarray[i][j].TileDetails());
+    // //    } 
+    //     gb.printCLIchess();     
+    // }
 
 }

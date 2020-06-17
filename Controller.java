@@ -1,12 +1,12 @@
 /*************************************************************
- **      public class controller to control the game        **
+ **         class controller to control the game            **
  **                                                         **
  **   Author : Saksham Bedi                                 **
  **   Github : sakshambedi                                  ** 
  ************************************************************/
 
+
 // ********* Importing Libraries **************
-// import java.util.Arrays;
 import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
@@ -42,6 +42,7 @@ public class Controller extends Throwable{
          */         
         GameBoard gb = new GameBoard();
         gb.printCLIchess();
+
         buildDefaultPlayers();
         int[][] mapCoords = new int[2][1];
         // gb.initiateEachTile();
@@ -54,8 +55,8 @@ public class Controller extends Throwable{
                 mapCoords[1] = Stream.of(arrayOfCommands[2]).mapToInt(Integer::parseInt).toArray();
                 for (int[] elements : mapCoords)    System.out.println(Arrays.toString(elements));
 
-
-                if( (gb.getChessPieceName( mapCoords[0][0] , mapCoords[0][1] )).equals("pawn") ) System.out.println("Shit Works !");
+    
+                // if( (gb.getChessPiece( mapCoords[0][0] , mapCoords[0][1] )) instanceOf   ) System.out.println("Shit Works !");
                 // for (int[] tempIntArray : mapCoords) System.out.println(Arrays.toString(tempIntArray));
                 increasePlayerCount();
                 switchPlayer();
@@ -128,7 +129,7 @@ public class Controller extends Throwable{
             String[] tempIntArray = returnCoords(cmdEnteredArray[1]);
             arrayOfCoordinates[1]  = tempIntArray;
             
-            tempIntArray=returnCoords(cmdEnteredArray[2]);
+            tempIntArray = returnCoords(cmdEnteredArray[2]);
             arrayOfCoordinates[2] = tempIntArray;
 
             // for(String[] element : arrayOfCoordinates)    System.out.println(Arrays.toString(element));
@@ -144,7 +145,8 @@ public class Controller extends Throwable{
     /**
      * Purpose :  To check if there is no negative value in the given int array 
      * 
-     * @param coordsArray : Array of coordinates
+     * @param coordsArray : Array of coordinates\
+     * 
     */
     private static boolean thereIsNoNegativeValue(String[][] coordsArray){
         for(String[] row : coordsArray){
@@ -161,14 +163,14 @@ public class Controller extends Throwable{
     * Purpose : method to turn chess language commands to eligible array commands 
     *  @param ChessCords : String piece containing a String value and a int value 
     *                      String reps x-axis in alphabets 
-    *                      Int reps y-axis 
+    *                      
     */
     private static String[] returnCoords(String chessCoords) { 
         String xCoord = String.valueOf(chessCoords.charAt(0));
         String yCoord = String.valueOf(chessCoords.charAt(1));
         // System.out.println(xCoord + " " +yCoord);
         
-        String[] Coords = {String.valueOf(returnMapXIndex(xCoord)),String.valueOf(returnMapYIndex(yCoord))};
+        String[] Coords = {String.valueOf(returnMapXIndex(yCoord)),String.valueOf(returnMapYIndex(xCoord))};
 
         return Coords;
     } 
@@ -179,9 +181,9 @@ public class Controller extends Throwable{
     * @param xpos : It is the String value of the string part of the position 
     *               tested with all cases and working until it is a string param
     */
-    private static int returnMapXIndex(String xpos){
+    private static int returnMapYIndex(String ypos){
         // initiating variable
-        String tempChar = String.valueOf(xpos.charAt(0));     
+        String tempChar = String.valueOf(ypos.charAt(0));     
         
         if(tempChar.equals("a")) return 0;
         else if (tempChar.equals("b")) return 1;
@@ -199,11 +201,11 @@ public class Controller extends Throwable{
     * @param ypos : It is the String value of the string part of the position 
     *               tested with all cases and working until it is a string param
     */
-    private static int returnMapYIndex(String ypos){
+    private static int returnMapXIndex(String xpos){
         // initiating variable
-        int tempInt = Integer.valueOf(ypos);
+        int tempInt = Integer.valueOf(xpos);
 
-        if(tempInt>0 && tempInt<8) return 7-(tempInt-1);
+        if(tempInt>0 && tempInt<9) return 8-tempInt;
         else    return -1;
     } 
 
@@ -236,9 +238,9 @@ public class Controller extends Throwable{
     *  @param - y-axis int value which  
     *
     */
-    private static void makeMove(String[][] arrayOfCommands){
+    // private static void makeMove(String[][] arrayOfCommands){
         
         
-    }
+    // }
 
 }

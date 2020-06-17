@@ -51,7 +51,7 @@ public class Tile {
     /**  
     * Purpose : method to return the name of the piece on the tile
     */
-    public String getPiece(){
+    public String getPieceName(){
         return piece.toStringName();
     }
 
@@ -72,5 +72,11 @@ public class Tile {
      */
     public void resetTile(){
         piece.removeChessPiece(); 
+    }
+
+
+
+    public chessPiece getPiece(){
+        return piece;
     }
 }

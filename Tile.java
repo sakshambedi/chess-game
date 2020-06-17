@@ -52,17 +52,18 @@ public class Tile {
     * Purpose : method to return the name of the piece on the tile
     */
     public String getPieceName(){
-        return piece.toStringName();
+        if(piece.toStringName()==null)  return "";
+        else return piece.toStringName();
     }
 
 
     /**
-     * Purpose : To check if there is a tile on this tile
-     * 
+    * Purpose : To check if there is a tile on this tile
+    * 
     */
     public boolean isPieceHere(){
-        if (piece.toStringName()==null) return true;
-        return false; 
+        if (piece.toStringName()==null) return false;
+        return true; 
     }
 
 

@@ -105,7 +105,7 @@ public class GameBoard{
      * @param j : y axis of 2d Array
      *  
      */
-    public boolean ifChessePieceAt(int i, int j){
+    public boolean ifChessPieceAt(int i, int j){
         return gameBoard[i][j].isPieceHere();
     }
 
@@ -132,16 +132,16 @@ public class GameBoard{
      * @param j : Int value of y-axis for 2d array 
      * 
      **/
-    public String getChessPiece(int i, int j){
+    public String getChessPieceName(int i, int j){
         return gameBoard[i][j].getPieceName();
     }
 
 
 
     /**  */
-    public void makeMove(int[] arrayOfCommands){
+    // public void makeMove(int[] arrayOfCommands){
 
-    }
+    // }
 
 
 

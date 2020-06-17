@@ -23,11 +23,6 @@ public class Controller extends Throwable{
     // class objects 
     static Scanner scanInput = new Scanner(System.in);
 
-   
-    public Controller(){
-        
-    }
-
     
     /**
      *  Purpose : Main Method
@@ -49,20 +44,24 @@ public class Controller extends Throwable{
 
         if(askForNames()){
             while(currentPlayerCount <= 5){
-                String[][] arrayOfCommands =  askForInput();
+                String[][] arrayOfCommands = askForInput();
                 // makeMove(arrayofCommand);
                 mapCoords[0] = Stream.of(arrayOfCommands[1]).mapToInt(Integer::parseInt).toArray();
                 mapCoords[1] = Stream.of(arrayOfCommands[2]).mapToInt(Integer::parseInt).toArray();
-                for (int[] elements : mapCoords)    System.out.println(Arrays.toString(elements));
+                // for (int[] elements : mapCoords)    System.out.println(Arrays.toString(elements));
 
     
-                // if( (gb.getChessPiece( mapCoords[0][0] , mapCoords[0][1] )) instanceOf   ) System.out.println("Shit Works !");
-                // for (int[] tempIntArray : mapCoords) System.out.println(Arrays.toString(tempIntArray));
-                increasePlayerCount();
-                switchPlayer();
+                if( (gb.getChessPieceName(mapCoords[0][0],mapCoords[0][1]).equals(arrayOfCommands[0][0]) )){
+                    System.out.println("Found the chess piece at : " + Arrays.toString(mapCoords[0])  );
+                
+                    increasePlayerCount();
+                    switchPlayer();
+    
+                }else    arrayOfCommands =  askForInput();
             } 
         }
     }
+
 
 
     /**
@@ -134,6 +133,7 @@ public class Controller extends Throwable{
 
             // for(String[] element : arrayOfCoordinates)    System.out.println(Arrays.toString(element));
             if(!thereIsNoNegativeValue(arrayOfCoordinates))    arrayOfCoordinates = askForInput();
+            
         }
         else arrayOfCoordinates = askForInput();
         return arrayOfCoordinates;

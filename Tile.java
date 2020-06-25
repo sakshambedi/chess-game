@@ -8,21 +8,23 @@
  
 // ************* importing libraries ***************** 
 import chessPieces.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class Tile {
     
     // assigning variables
-    private int xCoord;
-    private int yCoord;
+    private final int xCoord;
+    private final int yCoord;
     private chessPiece piece;
     
     
     // default contructor for Tile class 
-    public Tile(int XCoordinate,int yCoordinate){
+    public Tile(final int XCoordinate,final int yCoordinate){
         this.xCoord = XCoordinate;
         this.yCoord = yCoordinate;
-        this.piece = new chessPiece();
+        // this.piece = new chessPiece();
         // teamName = null;
         // color =(XCoordinate+yCoordinate)%2; 
     }
@@ -31,19 +33,19 @@ public class Tile {
     /**
      * Purpose : Method to chess piece at the given tile 
      */
-    public void setChessPiece(String name, String team){
-        if (name.equals("pawn"))    piece = new pawn(name,team);
-        else if(name.equals("rook"))    piece = new rook(name,team);
-        else if(name.equals("horse"))   piece = new horse(name,team);
-        else if(name.equals("bishop"))  piece = new bishop(name, team);
-        else if (name.equals("queen"))  piece = new queen(name,team);
-        else piece = new king(name,team);
+    protected void setChessPiece(String name, String team){
+        if (name.equals("pawn"))   this.piece = new pawn(name,team);
+        else if(name.equals("rook"))    this.piece = new rook(name,team);
+        else if(name.equals("horse"))   this.piece = new horse(name,team);
+        else if(name.equals("bishop"))  this.piece = new bishop(name, team);
+        else if (name.equals("queen"))  this.piece = new queen(name,team);
+        else this.piece = new king(name,team);
     }
 
     /**
      * Purpose :  return String x-coordinates and y-coordinates 
      */ 
-    public String TileDetails(){
+    protected String TileDetails(){
         return "X-value : " + xCoord + "; Y-value : "+ yCoord;
     }
 
@@ -51,9 +53,9 @@ public class Tile {
     /**  
     * Purpose : method to return the name of the piece on the tile
     */
-    public String getPieceName(){
-        if(piece.toStringName()==null)  return "";
-        else return piece.toStringName();
+    protected String getPieceName(){
+        if(this.piece==null)  return "";
+        else return this.piece.toStringName();
     }
 
 
@@ -61,8 +63,8 @@ public class Tile {
     * Purpose : To check if there is a tile on this tile
     * 
     */
-    public boolean isPieceHere(){
-        if (piece.toStringName()==null) return false;
+    protected boolean isPieceHere(){
+        if (this.piece==null) return false;
         return true; 
     }
 
@@ -71,13 +73,38 @@ public class Tile {
      * Purpose : to reset the state of the tile to empty
      * 
      */
-    public void resetTile(){
+    protected void resetTile(){
         piece.removeChessPiece(); 
     }
 
 
-
-    public chessPiece getPiece(){
-        return piece;
+    /**
+     *  Purpose : return chesspiece at the given tile
+     *   
+     *  @return piece : Chess piece at the given tile 
+     */ 
+    protected chessPiece getPiece(){
+        if(this.piece == null ) return null;
+        else return piece;
     }
+
+
+
+    /**
+     * Purpose : To call the right getPossibleMoves method depending upon the
+     *           instance of the chessPiece
+     * 
+     * 
+     * @return ArrayList<int[]> : arraylist of possible moves 
+     */
+    protected void getMoves(){
+        int[] psuedoArray = {0,0};
+        ArrayList<int[]> psuedoList = new ArrayList<int[]>(
+                                        Arrays.asList(psuedoArray));
+
+        if (this.piece.toStringName().equals("pawn") ) System.out.println(this.piece.getClass().getName());
+        // else if (this.piece instanceof rook) return ((rook)piece).getPossibleMoves(xCoord, yCoord);
+        // return psuedoList;    
+    }   
+
 }

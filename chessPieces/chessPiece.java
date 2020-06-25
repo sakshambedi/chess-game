@@ -10,13 +10,15 @@
 package chessPieces;
 
 // ****** Importing libraries ****** 
-// import java.util.ArrayList;
+import java.util.ArrayList;
 
 public class chessPiece {
 
     // private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
     private String name;
     private String teamColour;
+    private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
+
 
     // dummy construtor 
     public chessPiece(){
@@ -54,5 +56,20 @@ public class chessPiece {
         return teamColour;
     }
 
+
+
+    /**
+     * Purpose : Dummy method to return an empty arraylist 
+     *           
+     *            
+     * 
+     * @param i : X coordinates 
+     * @param j : Y Coordintes 
+     */
+    public ArrayList<int[]> getPossibleMoves(int i,int j){
+        int[] tempArray = {-1,-1}; 
+        possibleMoves.add(tempArray);
+        return possibleMoves;
+    }
 
 }

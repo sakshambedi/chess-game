@@ -1,21 +1,24 @@
-/**
- * 
- * making a basic game board 
- * using tiles to store each tile
- * each tile should have the corresponding data : 
- * x-axis : a-h;
- * y-axis : 1-8; 
- * chess piece : what chess piece it holds
- * 
+
+/********************************************************
+ *                                                      *
+ * making a basic game board                            *
+ * using tiles to store each tile                       *
+ * each tile should have the corresponding data :       * 
+ * x-axis : a-h;                                        *
+ * y-axis : 1-8;                                        *
+ * chess piece : chese pieces at that tile              *
+ *                                                      *
+ ******************************************************** 
 */
 
-// ---------------- importing libraries ------------
 
+// ---------------- importing libraries ------------
+import chessPieces.*;
 
 public class GameBoard{
 
     // initialising variabls 
-    private static Tile[][] gameBoard; 
+    private Tile[][] gameBoard; 
     
 
     /**
@@ -48,7 +51,7 @@ public class GameBoard{
     /**
      * Purpose : load default chess piece at there correct position after each tile has been initiated with default values 
      */
-    protected static void initiateDefaultPosition(){
+    protected void initiateDefaultPosition(){
         // for white pawn pieces
         // later one for black pieces 
         for (int i=0; i<8; i++){gameBoard[1][i].setChessPiece("pawn","black") ; 
@@ -131,11 +134,39 @@ public class GameBoard{
      * @param i : Int value of x-axis for 2d array
      * @param j : Int value of y-axis for 2d array 
      * 
+     * @return Tile.getPieceName at the given indexes on the gameboard
      **/
     public String getChessPieceName(int i, int j){
         return gameBoard[i][j].getPieceName();
     }
 
+
+
+    /**
+     * Purpose : To return chessPiece from the given tile 
+     * 
+     * 
+     * @param i
+     * @param j
+     * @return chessPiece at the given indexes in the gameBoard
+     */
+    public chessPiece getChessPieceAt(int i, int j){
+        return gameBoard[i][j].getPiece();
+    }
+
+
+
+    /**
+     * Purpose : To return the tile at the given indexes 
+     * 
+     * @param row : row index of the 2d map 
+     * @param column : column index of the 2d map
+     * 
+     * @return Tile : tile the given index in the gameBoard 
+      */
+    protected Tile getTileAt(int row, int column){
+        return gameBoard[row][column];
+    }
 
 
     /**  */

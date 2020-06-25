@@ -1,5 +1,5 @@
 /*************************************************************
- **         class controller to control the game            **
+ **         Class controller to control the game            **
  **                                                         **
  **   Author : Saksham Bedi                                 **
  **   Github : sakshambedi                                  ** 
@@ -11,9 +11,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import Player.*;
+import chessPieces.*;
 
 
-public class Controller extends Throwable{
+public class Controller{
 
     static final long serialVersionUID = 3387516923124222343L;
     private static int currentPlayerCount = 0 ;
@@ -22,28 +23,41 @@ public class Controller extends Throwable{
     private static Player player2;
     // class objects 
     static Scanner scanInput = new Scanner(System.in);
+    static GameBoard gb = new GameBoard();
 
-    
     /**
-     *  Purpose : Main Method
-     *  
-     * @param args : String array of arguments
-     *               args[0] is the name of the file
-     *   */
-    public static void main(String[] args){
-        
+     * Purpose : Main Method
+     * 
+     * @param args : String array of arguments args[0] is the name of the file
+     */
+    public static void main(String[] args) {
+
         /**
          * Initializing everything
-         */         
-        GameBoard gb = new GameBoard();
+         */
+        // GameBoard gb = new GameBoard();
         gb.printCLIchess();
+        player1 = new Player1();
+        player2 = new Player2();
+        currentPlayer = player1;
 
-        buildDefaultPlayers();
-        int[][] mapCoords = new int[2][1];
         // gb.initiateEachTile();
 
         if(askForNames()){
-            while(currentPlayerCount <= 5){
+            initiateGamePlay();
+        }
+    }
+
+
+
+    /***
+     * 
+     * @return
+     */
+    private static void initiateGamePlay() {
+        int[][] mapCoords = new int[2][1];
+        while(currentPlayerCount <= 5){
+            try{
                 String[][] arrayOfCommands = askForInput();
                 // makeMove(arrayofCommand);
                 mapCoords[0] = Stream.of(arrayOfCommands[1]).mapToInt(Integer::parseInt).toArray();
@@ -51,21 +65,27 @@ public class Controller extends Throwable{
                 // for (int[] elements : mapCoords)    System.out.println(Arrays.toString(elements));
 
     
-                if( (gb.getChessPieceName(mapCoords[0][0],mapCoords[0][1]).equals(arrayOfCommands[0][0]) )){
+                if( (gb.getChessPieceName(mapCoords[0][0],mapCoords[0][1]).equals(arrayOfCommands[0][0])) && (!gb.ifChessPieceAt(mapCoords[1][0],mapCoords[1][1]) )){
                     System.out.println("Found the chess piece at : " + Arrays.toString(mapCoords[0])  );
-                
+                    makeMove(mapCoords);
                     increasePlayerCount();
                     switchPlayer();
+                    // Arrays.deepToString(gb.getTileAt(mapCoords[1][0],mapCoords[1][1]).getMoves().toArray());
     
-                }else    arrayOfCommands =  askForInput();
-            } 
+                }
+            }catch(NumberFormatException numException){
+                System.out.println("Enter the appropriate command for the game!");
+            }        
         }
     }
 
 
 
+
     /**
      * Purpose : Ask for custom Names 
+     *           Only accepts yes/y or No/n 
+     *           Asks again for input if any error
      * 
     */
     private static boolean askForNames(){
@@ -78,18 +98,6 @@ public class Controller extends Throwable{
         } else if(userResponse.equals("no") || userResponse.equals("n"))    return true;
         return askForNames();
     }
-
-
-
-    /**
-     * Purpose : Make default player type objects 
-     *    
-     */
-    private static void buildDefaultPlayers(){     
-        player1 = new Player1();
-        player2 = new Player2();
-        currentPlayer = player1;
-    } 
 
 
 
@@ -106,8 +114,7 @@ public class Controller extends Throwable{
 
         System.out.print("Enter the name of the playes for black pieces : ");
         playerName = scanInput.nextLine();
-        player2.setPlayerName(playerName);
-        
+        player2.setPlayerName(playerName);       
     }
 
 
@@ -115,7 +122,7 @@ public class Controller extends Throwable{
     * Purpose :  method that asks for user input and then calls method to verify the 
     *            command entered by the user
     */
-    public static String[][] askForInput(){
+    public static String[][] askForInput() throws  NumberFormatException{
         System.out.print("Enter the command line for " + currentPlayer.getPlayerName() + ": ");
         String cmdEntered = scanInput.nextLine();
         String[] cmdEnteredArray = cmdEntered.split(" ");
@@ -234,13 +241,18 @@ public class Controller extends Throwable{
 
 
 
-    /* Purpose : Make a move and  
-    *  @param - y-axis int value which  
-    *
-    */
-    // private static void makeMove(String[][] arrayOfCommands){
-        
-        
-    // }
+    /**
+     *  Purpose : Make a move and  
+     *  
+     * @param  arrayOfCommands : 2d array of the initital position and final position for the piece   
+     * 
+     */
+    private static void makeMove(int[][] arrayOfCommands){
+        int i = arrayOfCommands[1][0];
+        int j = arrayOfCommands[1][1];
+        if(gb.getTileAt(i,j).getPieceName().equals("pawn"))    ;
+        // System.out.println( Arrays.deepToString(gb.getTileAt(i,j).getMoves().toArray()) ) ;
+        // else System.out.println("Explicit move request !");
+    }
 
 }

@@ -34,12 +34,12 @@ public class Tile {
      * Purpose : Method to chess piece at the given tile 
      */
     protected void setChessPiece(String name, String team){
-        if (name.equals("pawn"))   this.piece = new pawn(name,team);
-        else if(name.equals("rook"))    this.piece = new rook(name,team);
-        else if(name.equals("horse"))   this.piece = new horse(name,team);
-        else if(name.equals("bishop"))  this.piece = new bishop(name, team);
-        else if (name.equals("queen"))  this.piece = new queen(name,team);
-        else this.piece = new king(name,team);
+        if (name.equals("pawn"))   this.piece = new Pawn(name,team);
+        else if(name.equals("rook"))    this.piece = new Rook(name,team);
+        else if(name.equals("horse"))   this.piece = new Horse(name,team);
+        else if(name.equals("bishop"))  this.piece = new Bishop(name, team);
+        else if (name.equals("queen"))  this.piece = new Queen(name,team);
+        else this.piece = new King(name,team);
     }
 
     /**
@@ -97,14 +97,14 @@ public class Tile {
      * 
      * @return ArrayList<int[]> : arraylist of possible moves 
      */
-    protected void getMoves(){
+    protected ArrayList<int[]> getMoves(){
         int[] psuedoArray = {0,0};
         ArrayList<int[]> psuedoList = new ArrayList<int[]>(
                                         Arrays.asList(psuedoArray));
 
-        if (this.piece.toStringName().equals("pawn") ) System.out.println(this.piece.getClass().getName());
+        if (this.piece.toStringName().equals("pawn") ) return ((Pawn)piece).getPossibleMoves(xCoord, yCoord);
         // else if (this.piece instanceof rook) return ((rook)piece).getPossibleMoves(xCoord, yCoord);
-        // return psuedoList;    
+        return psuedoList;    
     }   
 
 }

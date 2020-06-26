@@ -3,14 +3,14 @@ package chessPieces;
 //**********importing libraries*************** 
 import java.util.ArrayList;
 
-public class bishop extends chessPiece{
+public class Bishop extends chessPiece{
 
     protected String name;
     protected String teamColour;
     private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
 
     // constructors 
-    public bishop(String name,String teamString){
+    public Bishop(String name,String teamString){
         super(name,teamString);
     }
 

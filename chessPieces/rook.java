@@ -3,14 +3,14 @@ package chessPieces;
 //**********importing libraries*************** 
 import java.util.ArrayList;
 
-public class rook extends chessPiece{
+public class Rook extends chessPiece{
 
     protected String name;
     protected String teamColour;
     private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
 
     // constructors 
-    public rook(String name,String teamString){
+    public Rook(String name,String teamString){
         super(name,teamString);
     }
 

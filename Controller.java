@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import Player.*;
-import chessPieces.*;
+// import chessPieces.*;
 
 
 public class Controller{
@@ -250,8 +250,7 @@ public class Controller{
     private static void makeMove(int[][] arrayOfCommands){
         int i = arrayOfCommands[1][0];
         int j = arrayOfCommands[1][1];
-        if(gb.getTileAt(i,j).getPieceName().equals("pawn"))    ;
-        // System.out.println( Arrays.deepToString(gb.getTileAt(i,j).getMoves().toArray()) ) ;
+        if(gb.getTileAt(i,j).getPieceName().equals("pawn")) System.out.println( Arrays.deepToString(gb.getTileAt(i,j).getMoves().toArray()) ) ;
         // else System.out.println("Explicit move request !");
     }
 

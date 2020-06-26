@@ -18,22 +18,22 @@ import chessPieces.*;
 public class GameBoard{
 
     // initialising variabls 
-    private Tile[][] gameBoard; 
+    private Tile[][] boardArray; 
     
 
     /**
      * Purpose : create a 2d array 
      */
     public GameBoard(){ 
-        gameBoard = new Tile[8][8];
+        boardArray = new Tile[8][8];
         initiateEachTile(); 
     }
 
 
     /**
-     * Purpose :  accessor method for GameBoard array
+     * Purpose :  accessor method for boardArray array
      **/ 
-    public Tile[][] getBoard() {return gameBoard;}
+    public Tile[][] getBoard() {return boardArray;}
 
 
     /**
@@ -41,7 +41,7 @@ public class GameBoard{
      */
     public void initiateEachTile(){
         for(int row=0; row< 8; row++){
-            for(int column = 0; column <8; column++ ) gameBoard[row][column] =  new Tile(row, column);
+            for(int column = 0; column <8; column++ ) boardArray[row][column] =  new Tile(row, column);
         }
         initiateDefaultPosition();
     }
@@ -54,49 +54,49 @@ public class GameBoard{
     protected void initiateDefaultPosition(){
         // for white pawn pieces
         // later one for black pieces 
-        for (int i=0; i<8; i++){gameBoard[1][i].setChessPiece("pawn","black") ; 
-                                gameBoard[6][i].setChessPiece("pawn","white");}
+        for (int i=0; i<8; i++){boardArray[1][i].setChessPiece("pawn","black") ; 
+                                boardArray[6][i].setChessPiece("pawn","white");}
 
         //************* placing white pieces first ***************
 
         // for rook 
-        gameBoard[7][0].setChessPiece("rook", "white");
-        gameBoard[7][7].setChessPiece("rook", "white");
+        boardArray[7][0].setChessPiece("rook", "white");
+        boardArray[7][7].setChessPiece("rook", "white");
     
         // for horse 
-        gameBoard[7][1].setChessPiece("horse", "white");
-        gameBoard[7][6].setChessPiece("horse", "white");
+        boardArray[7][1].setChessPiece("horse", "white");
+        boardArray[7][6].setChessPiece("horse", "white");
 
         // for bishop
-        gameBoard[7][2].setChessPiece("bishop", "white");
-        gameBoard[7][5].setChessPiece("bishop", "white");
+        boardArray[7][2].setChessPiece("bishop", "white");
+        boardArray[7][5].setChessPiece("bishop", "white");
 
         // queen
-        gameBoard[7][3].setChessPiece("queen", "white");
+        boardArray[7][3].setChessPiece("queen", "white");
          
         // king 
-        gameBoard[7][4].setChessPiece("king", "white");
+        boardArray[7][4].setChessPiece("king", "white");
 
 
         // *********** placing black pieces now **************** 
          
         // for rook
-        gameBoard[0][0].setChessPiece("rook", "black");
-        gameBoard[0][7].setChessPiece("rook", "black");
+        boardArray[0][0].setChessPiece("rook", "black");
+        boardArray[0][7].setChessPiece("rook", "black");
         
         // for horses 
-        gameBoard[0][1].setChessPiece("horse", "black");
-        gameBoard[0][6].setChessPiece("horse", "black");
+        boardArray[0][1].setChessPiece("horse", "black");
+        boardArray[0][6].setChessPiece("horse", "black");
 
         // for bishop 
-        gameBoard[0][2].setChessPiece("bishop", "black");
-        gameBoard[0][5].setChessPiece("bishop", "black");
+        boardArray[0][2].setChessPiece("bishop", "black");
+        boardArray[0][5].setChessPiece("bishop", "black");
 
         // queen 
-        gameBoard[0][4].setChessPiece("queen", "black");
+        boardArray[0][4].setChessPiece("queen", "black");
         
         // king 
-        gameBoard[0][3].setChessPiece("king", "black"); 
+        boardArray[0][3].setChessPiece("king", "black"); 
     }
 
 
@@ -109,7 +109,7 @@ public class GameBoard{
      *  
      */
     public boolean ifChessPieceAt(int i, int j){
-        return gameBoard[i][j].isPieceHere();
+        return boardArray[i][j].isPieceHere();
     }
 
 
@@ -118,9 +118,9 @@ public class GameBoard{
      * Purpose : print 2d array chess in cli
      **/
     protected void printCLIchess(){
-        for(int i = 0 ; i< gameBoard.length; i++){ 
-            for(int j = 0; j<gameBoard[i].length; j++) {
-                System.out.printf("[%6s]",gameBoard[i][j].getPieceName());
+        for(int i = 0 ; i< boardArray.length; i++){ 
+            for(int j = 0; j<boardArray[i].length; j++) {
+                System.out.printf("[%6s]",boardArray[i][j].getPieceName());
             }
             System.out.println("");
         }
@@ -134,10 +134,10 @@ public class GameBoard{
      * @param i : Int value of x-axis for 2d array
      * @param j : Int value of y-axis for 2d array 
      * 
-     * @return Tile.getPieceName at the given indexes on the gameboard
+     * @return Tile.getPieceName at the given indexes on the boardArray
      **/
     public String getChessPieceName(int i, int j){
-        return gameBoard[i][j].getPieceName();
+        return boardArray[i][j].getPieceName();
     }
 
 
@@ -148,10 +148,10 @@ public class GameBoard{
      * 
      * @param i
      * @param j
-     * @return chessPiece at the given indexes in the gameBoard
+     * @return chessPiece at the given indexes in the boardArray
      */
     public chessPiece getChessPieceAt(int i, int j){
-        return gameBoard[i][j].getPiece();
+        return boardArray[i][j].getPiece();
     }
 
 
@@ -162,10 +162,10 @@ public class GameBoard{
      * @param row : row index of the 2d map 
      * @param column : column index of the 2d map
      * 
-     * @return Tile : tile the given index in the gameBoard 
+     * @return Tile : tile the given index in the boardArray 
       */
     protected Tile getTileAt(int row, int column){
-        return gameBoard[row][column];
+        return boardArray[row][column];
     }
 
 
@@ -178,7 +178,7 @@ public class GameBoard{
 
     // main method for debugging 
     // public static void main(String[] args){ 
-    //     GameBoard gb = new GameBoard();
+    //     boardArray gb = new boardArray();
     //     gb.initiateEachTile();
     // //    Tile[][] gbarray = gb.getBoard();
     // //    for(int i =0 ; i< gbarray.length; i++){

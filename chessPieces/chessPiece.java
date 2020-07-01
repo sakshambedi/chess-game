@@ -9,29 +9,32 @@
 
 package chessPieces;
 
+import java.beans.ConstructorProperties;
 // ****** Importing libraries ****** 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class chessPiece {
 
-    // private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
-    private String name;
-    private String teamColour;
-    private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
+    protected String name;
+    protected String teamColor;
 
 
     // dummy construtor 
     public chessPiece(){
         this.name = null;
-        this.teamColour = null;
+        this.teamColor = null;
     }
 
     // Parameterized constructor
+    @ConstructorProperties({"name","teamColor"})
     public chessPiece(String name, String teamColor ){
         this.name = name;
-        this.teamColour = teamColor;
+        this.teamColor = teamColor;
     }
-                                            
+         
+    
+
     // setting the value of the chess Piece 
     public void setChessPiece(String name){
         this.name = name;
@@ -40,7 +43,7 @@ public class chessPiece {
 
     public void removeChessPiece(){
         this.name = null;
-        this.teamColour = null;
+        this.teamColor = null;
         
     }
 
@@ -53,23 +56,19 @@ public class chessPiece {
 
     // method that returs the name of the team
     public String toStringTeamName(){
-        return teamColour;
+        return teamColor;
     }
 
 
 
     /**
-     * Purpose : Dummy method to return an empty arraylist 
+     * Purpose : Dummy method to return an empty arraylist
+     *           Returns null and does nothing
      *           
      *            
      * 
      * @param i : X coordinates 
      * @param j : Y Coordintes 
      */
-    public ArrayList<int[]> getPossibleMoves(int i,int j){
-        int[] tempArray = {-1,-1}; 
-        possibleMoves.add(tempArray);
-        return possibleMoves;
-    }
-
+    public ArrayList<int[]> getPossibleMoves(int i,int j){ return null; }
 }

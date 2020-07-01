@@ -2,7 +2,9 @@
  **         Class controller to control the game            **
  **                                                         **
  **   Author : Saksham Bedi                                 **
- **   Github : sakshambedi                                  ** 
+ **   Github : sakshambedi                                  **
+ **                                                         **
+ **                                                         **
  ************************************************************/
 
 
@@ -11,6 +13,7 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import Player.*;
+import java.util.ArrayList;
 // import chessPieces.*;
 
 
@@ -28,7 +31,8 @@ public class Controller{
     /**
      * Purpose : Main Method
      * 
-     * @param args : String array of arguments args[0] is the name of the file
+     * @param args : String array of arguments 
+     *               args[0] is the name of the file
      */
     public static void main(String[] args) {
 
@@ -42,7 +46,6 @@ public class Controller{
         currentPlayer = player1;
 
         // gb.initiateEachTile();
-
         if(askForNames()){
             initiateGamePlay();
         }
@@ -50,7 +53,8 @@ public class Controller{
 
 
 
-    /***
+    /**
+     * Purpose : Inititiate the gameplay and asks for the appropriate
      * 
      * @return
      */
@@ -65,13 +69,12 @@ public class Controller{
                 // for (int[] elements : mapCoords)    System.out.println(Arrays.toString(elements));
 
     
-                if( (gb.getChessPieceName(mapCoords[0][0],mapCoords[0][1]).equals(arrayOfCommands[0][0])) && (!gb.ifChessPieceAt(mapCoords[1][0],mapCoords[1][1]) )){
-                    System.out.println("Found the chess piece at : " + Arrays.toString(mapCoords[0])  );
+                if( (gb.getChessPieceName(mapCoords[0][0],mapCoords[0][1]).equals(arrayOfCommands[0][0])) ){
+                    // System.out.println("Found the chess piece at : " + Arrays.toString(mapCoords[0])  );
                     makeMove(mapCoords);
                     increasePlayerCount();
                     switchPlayer();
                     // Arrays.deepToString(gb.getTileAt(mapCoords[1][0],mapCoords[1][1]).getMoves().toArray());
-    
                 }
             }catch(NumberFormatException numException){
                 System.out.println("Enter the appropriate command for the game!");
@@ -83,9 +86,9 @@ public class Controller{
 
 
     /**
-     * Purpose : Ask for custom Names 
-     *           Only accepts yes/y or No/n 
-     *           Asks again for input if any error
+     * Purpose : Ask for custom Names.  
+     *           Only accepts yes/y or No/n.  
+     *           Asks again for input if any error. 
      * 
     */
     private static boolean askForNames(){
@@ -152,7 +155,7 @@ public class Controller{
     /**
      * Purpose :  To check if there is no negative value in the given int array 
      * 
-     * @param coordsArray : Array of coordinates\
+     * @param coordsArray : Array of coordinates
      * 
     */
     private static boolean thereIsNoNegativeValue(String[][] coordsArray){
@@ -248,9 +251,14 @@ public class Controller{
      * 
      */
     private static void makeMove(int[][] arrayOfCommands){
-        int i = arrayOfCommands[1][0];
-        int j = arrayOfCommands[1][1];
-        if(gb.getTileAt(i,j).getPieceName().equals("pawn")) System.out.println( Arrays.deepToString(gb.getTileAt(i,j).getMoves().toArray()) ) ;
+        //  these are initial value of the chess pieces 
+        int i = arrayOfCommands[0][0];
+        int j = arrayOfCommands[0][1];
+        
+        ArrayList<int[]> moveArray =  new ArrayList<int[]> ();
+        System.out.println("Parameter Coords are : " + Arrays.deepToString(arrayOfCommands));
+        moveArray = gb.makeMove(i,j);  
+        System.out.println( Arrays.deepToString(moveArray.toArray()) );
         // else System.out.println("Explicit move request !");
     }
 

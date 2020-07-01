@@ -35,7 +35,7 @@ public class Queen extends chessPiece{
      * @param i : X coordinates 
      * @param j : Y Coordintes 
      */
-    public ArrayList<int[]> getPossibleMoves(int i,int j){
+    /* public ArrayList<int[]> getPossibleMoves(int i,int j){
         int[] tempArray = new int[2];
         
         if (this.teamColour.equals("white"))    tempArray[0] = i+1;
@@ -44,5 +44,5 @@ public class Queen extends chessPiece{
         tempArray[1] = j;
         possibleMoves.add(tempArray);
         return possibleMoves;
-    }
+    } */
 }

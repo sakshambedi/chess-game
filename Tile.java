@@ -1,9 +1,10 @@
-/**
- * 
- * Tile class stores the location of the tile
- * 
- * 
- */
+/*****************************************************
+ **                                                 **
+ ** Tile class stores the location of the tile      ** 
+ ** and the chessPiece it stores                    **
+ **                                                 **
+ **                                                 **
+ *****************************************************/    
 
  
 // ************* importing libraries ***************** 
@@ -14,7 +15,7 @@ import java.util.Arrays;
 
 public class Tile {
     
-    // assigning variables
+    // assigning class variables
     private final int xCoord;
     private final int yCoord;
     private chessPiece piece;
@@ -24,15 +25,16 @@ public class Tile {
     public Tile(final int XCoordinate,final int yCoordinate){
         this.xCoord = XCoordinate;
         this.yCoord = yCoordinate;
-        // this.piece = new chessPiece();
-        // teamName = null;
-        // color =(XCoordinate+yCoordinate)%2; 
     }
     
 
-    /**
+    /** 
      * Purpose : Method to chess piece at the given tile 
-     */
+     * 
+     * @param name : String name of the tile 
+     * @param team : String value of name,represented by the colour
+     * 
+     **/
     protected void setChessPiece(String name, String team){
         if (name.equals("pawn"))   this.piece = new Pawn(name,team);
         else if(name.equals("rook"))    this.piece = new Rook(name,team);
@@ -41,6 +43,7 @@ public class Tile {
         else if (name.equals("queen"))  this.piece = new Queen(name,team);
         else this.piece = new King(name,team);
     }
+
 
     /**
      * Purpose :  return String x-coordinates and y-coordinates 
@@ -55,7 +58,7 @@ public class Tile {
     */
     protected String getPieceName(){
         if(this.piece==null)  return "";
-        else return this.piece.toStringName();
+        return this.piece.toStringName();
     }
 
 
@@ -84,8 +87,18 @@ public class Tile {
      *  @return piece : Chess piece at the given tile 
      */ 
     protected chessPiece getPiece(){
-        if(this.piece == null ) return null;
-        else return piece;
+        return piece;
+    }
+
+    /**
+     * Purpose : To find the color of the chess piece at the given tile 
+     * 
+     * 
+     * @return colorOfPiece : String value of color of the piece at the tile 
+     * 
+     */
+    protected String getPieceColor(){
+        return piece.toStringTeamName();
     }
 
 
@@ -101,10 +114,20 @@ public class Tile {
         int[] psuedoArray = {0,0};
         ArrayList<int[]> psuedoList = new ArrayList<int[]>(
                                         Arrays.asList(psuedoArray));
-
-        if (this.piece.toStringName().equals("pawn") ) return ((Pawn)piece).getPossibleMoves(xCoord, yCoord);
-        // else if (this.piece instanceof rook) return ((rook)piece).getPossibleMoves(xCoord, yCoord);
+        if ((this.piece.toStringName()).equals("pawn") )  return calculateMovesForPawn();
+        // else if ((this.piece.toStringName()).equals("rook")) return;
         return psuedoList;    
     }   
+
+
+
+    private ArrayList<int[]> calculateMovesForPawn(){
+        return piece.getPossibleMoves(xCoord, yCoord);
+    }
+
+    // private ArrayList<int[]> calculateMovesForRook(){
+    //     if()
+    //     return piece.getPossibleMoves(xCoord, yCoord);
+    // }
 
 }

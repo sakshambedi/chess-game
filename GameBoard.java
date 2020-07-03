@@ -14,12 +14,9 @@
 
 // ---------------- importing libraries ------------
 import chessPieces.*;
-import sun.tools.tree.CaseStatement;
-
-import java.io.UncheckedIOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
 
 public class GameBoard {
 
@@ -65,14 +62,8 @@ public class GameBoard {
         }
 
         //********* debugging  ************
-        boardArray[2][1].setChessPiece("pawn","white");
-        boardArray[2][3].setChessPiece("pawn","white");
-        boardArray[2][2].setChessPiece("pawn","black");
-        boardArray[2][4].setChessPiece("pawn","black");
         boardArray[5][1].setChessPiece("pawn","black");
-        boardArray[5][3].setChessPiece("pawn","black");
-        boardArray[5][2].setChessPiece("pawn","white");
-        boardArray[5][4].setChessPiece("pawn","white"); 
+        boardArray[5][3].setChessPiece("pawn","black"); 
 
 
         // ************* placing white pieces first ***************
@@ -219,13 +210,24 @@ public class GameBoard {
         ArrayList<int[]> possibleMoves = new ArrayList<int[]>(Arrays.asList(getPossibleMoveForPawn(i, j, pawnColor)));
         int[][] attackList = getAttackMoveForPawn(i, j, pawnColor);
         for (int[] tempArray : attackList)
-            possibleMoves.addAll((Collection<? extends int[]>) Arrays.stream(tempArray));
+            if(tempArray[0]!=0 && tempArray[1]!=0)
+                Collections.addAll(possibleMoves,tempArray);
         return possibleMoves;    
     }
 
 
     
-    /**  */
+    /** 
+     * Purpose : To calculate the simple move of moving in uni-directionalw way 
+     * 
+     * @param i : X Coord location for the 2d Array
+     * @param j : Y Coord locationm for the 2d array
+     * @param pawnColor : Color the pawn to represent the team
+     * 
+     * @return tempArray : array of the movible location for the pawn depending
+     *                     upon the color
+     * 
+     */
     private int[] getPossibleMoveForPawn(int i , int j, String pawnColor ){
         int[] tempArray = new int[2];
         if (pawnColor.equals("white"))
@@ -250,13 +252,14 @@ public class GameBoard {
     */
     public int[][] getAttackMoveForPawn(int i, int j, String pawnColor){
         int[][] attackList = new int[2][2];
+
         if (pawnColor.equals("white")) {
-            if(boardArray[i+1][j+1].isPieceHere() ||  !boardArray[i+1][j+1].getPieceColor().equals(pawnColor)){
-                attackList[0][0] = i+1;
+            if( (j+1<=7) && (boardArray[i+1][j+1].isPieceHere() &&  !boardArray[i+1][j+1].getPieceColor().equals(pawnColor)) ){
+                attackList[0][0] = i-1;
                 attackList[0][1] = j+1;
                 
-            }if(boardArray[i+1][j-1].isPieceHere() ||  !boardArray[i+1][j-1].getPieceColor().equals(pawnColor)){
-                attackList[1][0] = i+1;
+            }if((j-1>=0) && (boardArray[i+1][j-1].isPieceHere() &&  !boardArray[i+1][j-1].getPieceColor().equals(pawnColor)) ){
+                attackList[1][0] = i-1;
                 attackList[1][1] = j-1;
             }
             

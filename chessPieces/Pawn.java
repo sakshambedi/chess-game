@@ -1,3 +1,5 @@
+package chessPieces;
+
 /*************************************
  *                                  **
  *  Pawn subclass for Chesse Piece  **
@@ -5,7 +7,6 @@
  *                                  **
  *                                  **
  *************************************/
-
 
 
 public class Pawn extends chessPiece{

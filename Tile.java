@@ -98,6 +98,7 @@ public class Tile {
      * 
      */
     protected String getPieceColor(){
+        if(this.piece == null) return "";
         return piece.toStringTeamName();
     }
 

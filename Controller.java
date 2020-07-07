@@ -55,8 +55,11 @@ public class Controller{
 
     /**
      * Purpose : Inititiate the gameplay and asks for the appropriate
+     *           map coords from the user and keeps asking if an invalid move request is made
      * 
-     * @return
+     * @return void
+     * 
+     * 
      */
     private static void initiateGamePlay() {
         int[][] mapCoords = new int[2][1];
@@ -256,7 +259,7 @@ public class Controller{
         int j = arrayOfCommands[0][1];
         
         ArrayList<int[]> moveArray =  new ArrayList<int[]> ();
-        System.out.println("Parameter Coords are : " + Arrays.deepToString(arrayOfCommands));
+        // System.out.println("Parameter Coords are : " + Arrays.deepToString(arrayOfCommands));
         moveArray = gb.makeMove(i,j);  
         System.out.println( Arrays.deepToString(moveArray.toArray()) );
         // else System.out.println("Explicit move request !");

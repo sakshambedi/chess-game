@@ -62,8 +62,8 @@ public class GameBoard {
         }
 
         //********* debugging  ************
-        boardArray[5][1].setChessPiece("pawn","black");
-        boardArray[5][3].setChessPiece("pawn","black"); 
+        boardArray[5][0].setChessPiece("pawn","black");
+        boardArray[5][1].setChessPiece("pawn","black"); 
 
 
         // ************* placing white pieces first ***************
@@ -107,6 +107,9 @@ public class GameBoard {
         boardArray[0][3].setChessPiece("king", "black");
     }
 
+
+
+
     /**
      * Purpose : To Check if the there is a chessPiece is there on the tile
      *
@@ -117,6 +120,8 @@ public class GameBoard {
     public boolean ifChessPieceAt(int i, int j) {
         return boardArray[i][j].isPieceHere();
     }
+
+
 
     /**
      * Purpose : print 2d array chess in cli
@@ -130,6 +135,8 @@ public class GameBoard {
         }
     }
 
+
+
     /**
      * Purpose : Get the name of the chess piece at the given tile coords
      * 
@@ -142,17 +149,23 @@ public class GameBoard {
         return boardArray[i][j].getPieceName();
     }
 
+
+
     /**
      * Purpose : To return chessPiece from the given tile
      * 
      * 
-     * @param i
-     * @param j
+     * @param i : X coord of the tile in the board array 
+     * @param j : y coord of the tile in the board array
+     * 
      * @return chessPiece at the given indexes in the boardArray
+     * 
      */
     public chessPiece getChessPieceAt(int i, int j) {
         return boardArray[i][j].getPiece();
     }
+
+
 
     /**
      * Purpose : To return the tile at the given indexes
@@ -161,6 +174,7 @@ public class GameBoard {
      * @param column : column index of the 2d map
      * 
      * @return Tile : tile the given index in the boardArray
+     * 
      */
     protected Tile getTileAt(int row, int column) {
         return boardArray[row][column];
@@ -176,12 +190,14 @@ public class GameBoard {
      * @param i : XCoord for the tile in the map
      * @param j : YCoord for the tile in the map
      * 
-     * @return void
+     * @return ArrayList of the possible moves.
+     *           This returns array {-1,-1} for debugging.
+     *           Also causes index out of bound exception if used to make move.
      * 
      */
     protected ArrayList<int[]> makeMove(int i, int j) {
 
-        int[] psuedoArray = {0,0};
+        int[] psuedoArray = {-1,-1};
         ArrayList<int[]> psuedoList = new ArrayList<int[]>(
                                         Arrays.asList(psuedoArray));
 
@@ -194,9 +210,8 @@ public class GameBoard {
 
 
     /**
-     * Purpose : Method to return an arraylist of unidirection of pawns by giving
-     * the current position of the piece depending upon the colours of the chess
-     * piece
+     * Purpose : Method to return an arraylist possible moves(Straight Moves and diagonal Attack) 
+     *          of pawns by giving the current position 
      * 
      * @param i : X coordinates
      * @param j : Y Coordintes
@@ -206,9 +221,16 @@ public class GameBoard {
      */
     private ArrayList<int[]> calculateMovesForPawn(chessPiece pawn, int i, int j){
         String pawnColor = pawn.toStringTeamName();
-        // if(pawnColor.equals("white")){
-        ArrayList<int[]> possibleMoves = new ArrayList<int[]>(Arrays.asList(getPossibleMoveForPawn(i, j, pawnColor)));
+        ArrayList<int[]> possibleMoves = new ArrayList<int[]>( );
+
+
+
+        int[] moveArray = getPossibleMoveForPawn(i, j, pawnColor);
+        if(moveArray[0]!=0 && moveArray[1]!=0)  possibleMoves.add(moveArray);
+
+        
         int[][] attackList = getAttackMoveForPawn(i, j, pawnColor);
+        
         for (int[] tempArray : attackList)
             if(tempArray[0]!=0 && tempArray[1]!=0)
                 Collections.addAll(possibleMoves,tempArray);
@@ -220,8 +242,8 @@ public class GameBoard {
     /** 
      * Purpose : To calculate the simple move of moving in uni-directionalw way 
      * 
-     * @param i : X Coord location for the 2d Array
-     * @param j : Y Coord locationm for the 2d array
+     * @param i : X Coord location of the chess piece for the 2d Array
+     * @param j : Y Coord location of the chess Piece for the 2d array
      * @param pawnColor : Color the pawn to represent the team
      * 
      * @return tempArray : array of the movible location for the pawn depending
@@ -229,15 +251,23 @@ public class GameBoard {
      * 
      */
     private int[] getPossibleMoveForPawn(int i , int j, String pawnColor ){
-        int[] tempArray = new int[2];
-        if (pawnColor.equals("white"))
-            tempArray[0] = i - 1;
-        else
-            tempArray[0] = i + 1;
-
-        tempArray[1] = j;
-        return tempArray;
+        int[] tempArray =  new int[2];
+        
+        if(pawnColor.equals("white")){
+            if (!boardArray[i - 1][j].isPieceHere()) {
+                tempArray[0] = i - 1;
+                tempArray[1] =j;
+            }
+        }else{
+            if(!boardArray[i+1][j].isPieceHere()){   
+                tempArray[0] = i + 1;
+                tempArray[1] = j;
+                // return tempArray;
+            }      
+        }
+        return tempArray;      
     }
+
 
 
      /**
@@ -254,27 +284,20 @@ public class GameBoard {
         int[][] attackList = new int[2][2];
 
         if (pawnColor.equals("white")) {
-            if( (j+1<=7) && (boardArray[i+1][j+1].isPieceHere() &&  !boardArray[i+1][j+1].getPieceColor().equals(pawnColor)) ){
+            if( (j+1<=7) && (boardArray[i-1][j+1].isPieceHere() &&  !boardArray[i-1][j+1].getPieceColor().equals(pawnColor)) )
                 attackList[0][0] = i-1;
-                attackList[0][1] = j+1;
-                
-            }if((j-1>=0) && (boardArray[i+1][j-1].isPieceHere() &&  !boardArray[i+1][j-1].getPieceColor().equals(pawnColor)) ){
+                attackList[0][1] = j+1;    
+            if((j-1>=0) && (boardArray[i-1][j-1].isPieceHere() &&  !boardArray[i-1][j-1].getPieceColor().equals(pawnColor)) )
                 attackList[1][0] = i-1;
                 attackList[1][1] = j-1;
-            }
-            
-
-        }   
-        // else{
-        //     tempArray[0] = i-1;
-        //     tempArray[1] = j-1;
-        //     possibleMoves.add(tempArray);
-            
-        //     tempArray[0] = i-1;
-        //     tempArray[1] = j+1;
-        //     possibleMoves.add(tempArray);
-            
-        // }
+        }else{
+            if ((j+1<=7) && (boardArray[i+1][j+1].isPieceHere() &&  boardArray[i+1][j+1].getPieceColor().equals(pawnColor)))
+                attackList[0][0] = i+1;
+                attackList[0][1] = j+1;
+            if ((j-1>=0) && (boardArray[i+1][j-1].isPieceHere() &&  !boardArray[i+1][j-1].getPieceColor().equals(pawnColor)) )
+                attackList[1][0] = i+1;
+                attackList[1][1] = j-1;
+        }
         return attackList;
     }
 

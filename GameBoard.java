@@ -404,51 +404,51 @@ public class GameBoard {
 
 
             // for going east
-            int eastIndex = j+1;
-            while(southIndex<8){
-                /* need to make a new array every time so that if value of elements change anytime through
-                out the loop all other values of the array in arraylist will also change the pointer */
-                if(boardArray[i][eastIndex].isPieceHere() && boardArray[i][eastIndex].getPieceColor().equals(rookColor) )
-                    break;
-                else if(boardArray[i][eastIndex].isPieceHere() && !boardArray[i][eastIndex].getPieceColor().equals(rookColor)){
-                    tempArray = new int[2];
-                    tempArray[0] = i;
-                    tempArray[1] = eastIndex;
-                    eastIndex++;
-                    possibleMoves.add(tempArray);
-                    break;
-                }else{ 
-                    tempArray = new int[2];
-                    tempArray[0] = i;
-                    tempArray[1] = eastIndex;
-                    eastIndex++;
-                    possibleMoves.add(tempArray);
-                }
+        int eastIndex = j+1;
+        while(southIndex<8){
+            /* need to make a new array every time so that if value of elements change anytime through
+            out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[i][eastIndex].isPieceHere() && boardArray[i][eastIndex].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[i][eastIndex].isPieceHere() && !boardArray[i][eastIndex].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = i;
+                tempArray[1] = eastIndex;
+                eastIndex++;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = i;
+                tempArray[1] = eastIndex;
+                eastIndex++;
+                possibleMoves.add(tempArray);
             }
+        }
 
 
             // for going west 
-            int westIndex = j-1;
-            while(westIndex>-1){
-                /* need to make a new array every time so that if value of elements change anytime through
-                out the loop all other values of the array in arraylist will also change the pointer */
-                if(boardArray[i][westIndex].isPieceHere() && boardArray[i][westIndex].getPieceColor().equals(rookColor) )
-                    break;
-                else if(boardArray[i][westIndex].isPieceHere() && !boardArray[i][westIndex].getPieceColor().equals(rookColor)){
-                    tempArray = new int[2];
-                    tempArray[0] = i;
-                    tempArray[1] = westIndex;
-                    westIndex--;
-                    possibleMoves.add(tempArray);
-                    break;
-                }else{ 
-                    tempArray = new int[2];
-                    tempArray[0] = i;
-                    tempArray[1] = westIndex;
-                    westIndex--;
-                    possibleMoves.add(tempArray);
-                }
+        int westIndex = j-1;
+        while(westIndex>-1){
+            /* need to make a new array every time so that if value of elements change anytime through
+            out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[i][westIndex].isPieceHere() && boardArray[i][westIndex].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[i][westIndex].isPieceHere() && !boardArray[i][westIndex].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = i;
+                tempArray[1] = westIndex;
+                westIndex--;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = i;
+                tempArray[1] = westIndex;
+                westIndex--;
+                possibleMoves.add(tempArray);
             }
+        }
 
 
 
@@ -456,7 +456,7 @@ public class GameBoard {
         // printing the arrayList for debugging 
         // possibleMoves.forEach(printArray -> {
         //     System.out.print(Arrays.toString(printArray)); });
-        // return possibleMoves; 
+        return possibleMoves; 
     }
     /* main method for debugging  */
     /* public static void main(String[] args){ 

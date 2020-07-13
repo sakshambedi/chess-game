@@ -50,64 +50,93 @@ public class GameBoard {
     }
 
     /**
-     * Purpose : load default chess piece at there correct position after each tile
-     * has been initiated with default values
+     * Purpose : Load default chess piece at there correct position after each tile
+     * 			 has been initiated with default values
+	 * 
+	 * 
+	 * @return void 
+	 * 
      */
     protected void initiateDefaultPosition() {
         // for white pawn pieces
         // later one for black pieces
-        for (int i = 0; i < 8; i++) {
-            boardArray[1][i].setChessPiece("pawn", "black");
-            boardArray[6][i].setChessPiece("pawn", "white");
-        }
+        // for (int i = 0; i < 8; i++) {
+        //     boardArray[1][i].setChessPiece("pawn", "black");
+        //     boardArray[6][i].setChessPiece("pawn", "white");
+        // }
 
-        //********* debugging  ************
-        boardArray[5][0].setChessPiece("pawn","black");
-        boardArray[5][1].setChessPiece("pawn","black"); 
+        // //********* debugging  ************
+        // boardArray[5][0].setChessPiece("pawn","black");
+		// boardArray[5][1].setChessPiece("pawn","black");
+		// boardArray[5][6].setChessPiece("pawn","white");
+		// boardArray[5][5].setChessPiece("pawn","white");
+		// boardArray[2][0].setChessPiece("pawn","white");
+		// boardArray[2][1].setChessPiece("pawn","white");
 
 
-        // ************* placing white pieces first ***************
+		// boardArray[6][7].resetTile(); 
 
-        // for rook
-        boardArray[7][0].setChessPiece("rook", "white");
-        boardArray[7][7].setChessPiece("rook", "white");
 
-        // for horse
-        boardArray[7][1].setChessPiece("horse", "white");
-        boardArray[7][6].setChessPiece("horse", "white");
+        // // ************* placing white pieces first ***************
 
-        // for bishop
-        boardArray[7][2].setChessPiece("bishop", "white");
-        boardArray[7][5].setChessPiece("bishop", "white");
+        // // for rook
+        // boardArray[7][0].setChessPiece("rook", "white");
+        // boardArray[7][7].setChessPiece("rook", "white");
 
-        // queen
-        boardArray[7][3].setChessPiece("queen", "white");
+        // // for horse
+        // boardArray[7][1].setChessPiece("horse", "white");
+        // boardArray[7][6].setChessPiece("horse", "white");
 
-        // king
-        boardArray[7][4].setChessPiece("king", "white");
+        // // for bishop
+        // boardArray[7][2].setChessPiece("bishop", "white");
+        // boardArray[7][5].setChessPiece("bishop", "white");
 
-        // *********** placing black pieces now ****************
+        // // queen
+        // boardArray[7][3].setChessPiece("queen", "white");
 
-        // for rook
-        boardArray[0][0].setChessPiece("rook", "black");
-        boardArray[0][7].setChessPiece("rook", "black");
+        // // king
+        // boardArray[7][4].setChessPiece("king", "white");
 
-        // for horses
-        boardArray[0][1].setChessPiece("horse", "black");
-        boardArray[0][6].setChessPiece("horse", "black");
+        // // *********** placing black pieces now ****************
 
-        // for bishop
-        boardArray[0][2].setChessPiece("bishop", "black");
-        boardArray[0][5].setChessPiece("bishop", "black");
+        // // for rook
+        // boardArray[0][0].setChessPiece("rook", "black");
+        // boardArray[0][7].setChessPiece("rook", "black");
 
-        // queen
-        boardArray[0][4].setChessPiece("queen", "black");
+        // // for horses
+        // boardArray[0][1].setChessPiece("horse", "black");
+        // boardArray[0][6].setChessPiece("horse", "black");
 
-        // king
-        boardArray[0][3].setChessPiece("king", "black");
+        // // for bishop
+        // boardArray[0][2].setChessPiece("bishop", "black");
+        // boardArray[0][5].setChessPiece("bishop", "black");
+
+        // // queen
+        // boardArray[0][4].setChessPiece("queen", "black");
+
+        // // king
+		// boardArray[0][3].setChessPiece("king", "black");
+		
+		// debugging
+		initialiseTestCase();
     }
 
 
+	/**
+	 * 
+	 * Purpose : Test situations for debugging 
+	 * 
+	 * @return void 
+	 * 
+	  */
+
+	  private void initialiseTestCase(){
+		boardArray[4][4].setChessPiece("rook","white");
+		boardArray[1][4].setChessPiece("pawn","black");
+        boardArray[5][4].setChessPiece("pawn","black");	
+        boardArray[4][1].setChessPiece("pawn","black");	
+        boardArray[4][6].setChessPiece("pawn","black");
+	  }
 
 
     /**
@@ -192,7 +221,7 @@ public class GameBoard {
      * 
      * @return ArrayList of the possible moves.
      *           This returns array {-1,-1} for debugging.
-     *           Also causes index out of bound exception if used to make move.
+     *           Also causes IndexOutOfBound exception if used to make move.
      * 
      */
     protected ArrayList<int[]> makeMove(int i, int j) {
@@ -201,9 +230,12 @@ public class GameBoard {
         ArrayList<int[]> psuedoList = new ArrayList<int[]>(
                                         Arrays.asList(psuedoArray));
 
-        chessPiece tempPiece = boardArray[i][j].getPiece();
-        if (tempPiece instanceof Pawn)
-            return calculateMovesForPawn(tempPiece, i, j);
+        chessPiece pieceAtTheTile = boardArray[i][j].getPiece();
+        if (pieceAtTheTile instanceof Pawn)
+            return calculateMovesForPawn(i, j, pieceAtTheTile);
+        else if(pieceAtTheTile instanceof Rook)
+            return calculateMovesForRook(i, j, pieceAtTheTile.toStringTeamName());
+        
         return psuedoList;
     }
 
@@ -219,20 +251,20 @@ public class GameBoard {
      * @return possibleMoves : Arraylist of int array containing all the possible
      *         movable blocks for the chessPiece
      */
-    private ArrayList<int[]> calculateMovesForPawn(chessPiece pawn, int i, int j){
+    private ArrayList<int[]> calculateMovesForPawn(int i, int j, chessPiece pawn){
         String pawnColor = pawn.toStringTeamName();
         ArrayList<int[]> possibleMoves = new ArrayList<int[]>( );
 
 
 
         int[] moveArray = getPossibleMoveForPawn(i, j, pawnColor);
-        if(moveArray[0]!=0 && moveArray[1]!=0)  possibleMoves.add(moveArray);
+        if(moveArray[0]!=-1 && moveArray[1]!=-1)  possibleMoves.add(moveArray);
 
         
         int[][] attackList = getAttackMoveForPawn(i, j, pawnColor);
         
         for (int[] tempArray : attackList)
-            if(tempArray[0]!=0 && tempArray[1]!=0)
+            if(tempArray[0]!=-1 && tempArray[1]!=-1)
                 Collections.addAll(possibleMoves,tempArray);
         return possibleMoves;    
     }
@@ -251,7 +283,7 @@ public class GameBoard {
      * 
      */
     private int[] getPossibleMoveForPawn(int i , int j, String pawnColor ){
-        int[] tempArray =  new int[2];
+        int[] tempArray =  {-1,-1};
         
         if(pawnColor.equals("white")){
             if (!boardArray[i - 1][j].isPieceHere()) {
@@ -270,6 +302,7 @@ public class GameBoard {
 
 
 
+
      /**
      * Purpose : Method to return a 2d  array of attack mode for the pawn 
      * 
@@ -280,8 +313,9 @@ public class GameBoard {
      * @return attackArray : 2dArray of the possible attack list  
      * 
     */
-    public int[][] getAttackMoveForPawn(int i, int j, String pawnColor){
-        int[][] attackList = new int[2][2];
+    private int[][] getAttackMoveForPawn(int i, int j, String pawnColor){
+		int[][] attackList = {{-1,-1},
+							{-1,-1}};
 
         if (pawnColor.equals("white")) {
             if( (j+1<=7) && (boardArray[i-1][j+1].isPieceHere() &&  !boardArray[i-1][j+1].getPieceColor().equals(pawnColor)) )
@@ -291,7 +325,7 @@ public class GameBoard {
                 attackList[1][0] = i-1;
                 attackList[1][1] = j-1;
         }else{
-            if ((j+1<=7) && (boardArray[i+1][j+1].isPieceHere() &&  boardArray[i+1][j+1].getPieceColor().equals(pawnColor)))
+            if ((j+1<=7) && (boardArray[i+1][j+1].isPieceHere() &&  !boardArray[i+1][j+1].getPieceColor().equals(pawnColor)))
                 attackList[0][0] = i+1;
                 attackList[0][1] = j+1;
             if ((j-1>=0) && (boardArray[i+1][j-1].isPieceHere() &&  !boardArray[i+1][j-1].getPieceColor().equals(pawnColor)) )
@@ -302,6 +336,128 @@ public class GameBoard {
     }
 
 
+
+
+    /**
+     * Purpose : To calculate moves for the rook.
+	 * 			 Moves are the array location for possible moveable location for rook
+	 * 
+	 * @param i : x Coord of the piece 
+	 * @param y : y Coord of the piece 
+	 * @param rookColor :  Color of the rook at the tile in the boardArray
+     * 
+     * @return possibleMoves : ArrayList of int[] array 
+     * 
+      */
+    public ArrayList<int[]> calculateMovesForRook(int i,int j,String rookColor){
+			
+		//assigning variables   
+		ArrayList<int[]> possibleMoves = new ArrayList<int[]>(14);
+        int[] tempArray = {-1,-1};
+
+            // for going north
+        int northIndex = i-1;
+		while(northIndex>-1){
+            /* need to make a new array every time so that if value of elements change anytime through
+            out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[northIndex][j].isPieceHere() && boardArray[northIndex][j].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[northIndex][j].isPieceHere() && !boardArray[northIndex][j].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = j;
+                northIndex--;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = j;
+                northIndex--;
+                possibleMoves.add(tempArray);
+            }    
+        }
+
+
+            // for going south
+        int southIndex = i+1;
+        while(southIndex<8){
+            /* need to make a new array every time so that if value of elements change anytime through
+            out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[southIndex][j].isPieceHere() && boardArray[southIndex][j].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[southIndex][j].isPieceHere() && !boardArray[southIndex][j].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = southIndex;
+                tempArray[1] = j;
+                southIndex++;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = southIndex;
+                tempArray[1] = j;
+                southIndex++;
+                possibleMoves.add(tempArray);
+            }
+        }
+
+
+            // for going east
+            int eastIndex = j+1;
+            while(southIndex<8){
+                /* need to make a new array every time so that if value of elements change anytime through
+                out the loop all other values of the array in arraylist will also change the pointer */
+                if(boardArray[i][eastIndex].isPieceHere() && boardArray[i][eastIndex].getPieceColor().equals(rookColor) )
+                    break;
+                else if(boardArray[i][eastIndex].isPieceHere() && !boardArray[i][eastIndex].getPieceColor().equals(rookColor)){
+                    tempArray = new int[2];
+                    tempArray[0] = i;
+                    tempArray[1] = eastIndex;
+                    eastIndex++;
+                    possibleMoves.add(tempArray);
+                    break;
+                }else{ 
+                    tempArray = new int[2];
+                    tempArray[0] = i;
+                    tempArray[1] = eastIndex;
+                    eastIndex++;
+                    possibleMoves.add(tempArray);
+                }
+            }
+
+
+            // for going west 
+            int westIndex = j-1;
+            while(westIndex>-1){
+                /* need to make a new array every time so that if value of elements change anytime through
+                out the loop all other values of the array in arraylist will also change the pointer */
+                if(boardArray[i][westIndex].isPieceHere() && boardArray[i][westIndex].getPieceColor().equals(rookColor) )
+                    break;
+                else if(boardArray[i][westIndex].isPieceHere() && !boardArray[i][westIndex].getPieceColor().equals(rookColor)){
+                    tempArray = new int[2];
+                    tempArray[0] = i;
+                    tempArray[1] = westIndex;
+                    westIndex--;
+                    possibleMoves.add(tempArray);
+                    break;
+                }else{ 
+                    tempArray = new int[2];
+                    tempArray[0] = i;
+                    tempArray[1] = westIndex;
+                    westIndex--;
+                    possibleMoves.add(tempArray);
+                }
+            }
+
+
+
+
+        // printing the arrayList for debugging 
+        // possibleMoves.forEach(printArray -> {
+        //     System.out.print(Arrays.toString(printArray)); });
+        // return possibleMoves; 
+    }
     /* main method for debugging  */
     /* public static void main(String[] args){ 
         GameBoard gb = new GameBoard();

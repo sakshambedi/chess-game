@@ -6,13 +6,11 @@
  * 
 */
 
-
 package chessPieces;
 
-import java.beans.ConstructorProperties;
+
 // ****** Importing libraries ****** 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.beans.ConstructorProperties;
 
 public class chessPiece {
 
@@ -41,11 +39,17 @@ public class chessPiece {
     }
 
 
-    public void removeChessPiece(){
-        this.name = null;
-        this.teamColor = null;
-        
+    public void setChessPieceColor(String teamColor){
+        this.teamColor = teamColor;
     }
+
+
+
+    // public void removeChessPiece(){
+    //     this.name = null;
+    //     this.teamColor = null;
+        
+    // }
 
 
     // method that returns name of the piece 
@@ -59,16 +63,4 @@ public class chessPiece {
         return teamColor;
     }
 
-
-
-    /**
-     * Purpose : Dummy method to return an empty arraylist
-     *           Returns null and does nothing
-     *           
-     *            
-     * 
-     * @param i : X coordinates 
-     * @param j : Y Coordintes 
-     */
-    public ArrayList<int[]> getPossibleMoves(int i,int j){ return null; }
 }

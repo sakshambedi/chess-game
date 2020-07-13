@@ -9,8 +9,6 @@
  
 // ************* importing libraries ***************** 
 import chessPieces.*;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class Tile {
@@ -63,8 +61,10 @@ public class Tile {
 
 
     /**
-    * Purpose : To check if there is a tile on this tile
-    * 
+    * Purpose : To check if there is a tile on this tile.
+    *           Return true if there is a tile there ordewise returns false 
+    *
+    * return boolean 
     */
     protected boolean isPieceHere(){
         if (this.piece==null) return false;
@@ -77,7 +77,7 @@ public class Tile {
      * 
      */
     protected void resetTile(){
-        piece.removeChessPiece(); 
+        this.piece=null;
     }
 
 
@@ -104,31 +104,16 @@ public class Tile {
 
 
 
-    /**
-     * Purpose : To call the right getPossibleMoves method depending upon the
-     *           instance of the chessPiece
+    /** 
+     * Purpose : To change the color of piece at the given tile position
      * 
+     * @param pieceColor : new color of the chessPiece 
      * 
-     * @return ArrayList<int[]> : arraylist of possible moves 
-     */
-    protected ArrayList<int[]> getMoves(){
-        int[] psuedoArray = {0,0};
-        ArrayList<int[]> psuedoList = new ArrayList<int[]>(
-                                        Arrays.asList(psuedoArray));
-        if ((this.piece.toStringName()).equals("pawn") )  return calculateMovesForPawn();
-        // else if ((this.piece.toStringName()).equals("rook")) return;
-        return psuedoList;    
-    }   
-
-
-
-    private ArrayList<int[]> calculateMovesForPawn(){
-        return piece.getPossibleMoves(xCoord, yCoord);
-    }
-
-    // private ArrayList<int[]> calculateMovesForRook(){
-    //     if()
-    //     return piece.getPossibleMoves(xCoord, yCoord);
-    // }
+     * @return void
+     * 
+      */
+      protected void setChessPieceColor(String pieceColor){
+            piece.setChessPieceColor(pieceColor);
+        }
 
 }

@@ -131,11 +131,17 @@ public class GameBoard {
 	  */
 
 	  private void initialiseTestCase(){
-		boardArray[4][4].setChessPiece("rook","white");
+		boardArray[4][4].setChessPiece("bishop","white");
 		boardArray[1][4].setChessPiece("pawn","black");
         boardArray[5][4].setChessPiece("pawn","black");	
         boardArray[4][1].setChessPiece("pawn","black");	
         boardArray[4][6].setChessPiece("pawn","black");
+        boardArray[2][6].setChessPiece("pawn","black");
+        boardArray[7][6].setChessPiece("pawn","black");
+        boardArray[0][0].setChessPiece("pawn","black");
+        boardArray[5][3].setChessPiece("pawn","black");
+
+
 	  }
 
 
@@ -231,10 +237,15 @@ public class GameBoard {
                                         Arrays.asList(psuedoArray));
 
         chessPiece pieceAtTheTile = boardArray[i][j].getPiece();
+        String pieceColor = pieceAtTheTile.toStringTeamName();
         if (pieceAtTheTile instanceof Pawn)
-            return calculateMovesForPawn(i, j, pieceAtTheTile);
+            return calculateMovesForPawn(i, j, pieceColor);
         else if(pieceAtTheTile instanceof Rook)
-            return calculateMovesForRook(i, j, pieceAtTheTile.toStringTeamName());
+            return calculateMovesForRook(i, j, pieceColor);
+        else if(pieceAtTheTile instanceof Bishop)
+            return calculateMovesForBishop(i, j, pieceColor);
+        else if(pieceAtTheTile instanceof Queen)
+            return calculateMovesForQueen(i, j, pieceColor);
         
         return psuedoList;
     }
@@ -251,8 +262,7 @@ public class GameBoard {
      * @return possibleMoves : Arraylist of int array containing all the possible
      *         movable blocks for the chessPiece
      */
-    private ArrayList<int[]> calculateMovesForPawn(int i, int j, chessPiece pawn){
-        String pawnColor = pawn.toStringTeamName();
+    private ArrayList<int[]> calculateMovesForPawn(int i, int j, String pawnColor){
         ArrayList<int[]> possibleMoves = new ArrayList<int[]>( );
 
 
@@ -450,14 +460,169 @@ public class GameBoard {
             }
         }
 
-
-
-
         // printing the arrayList for debugging 
         // possibleMoves.forEach(printArray -> {
         //     System.out.print(Arrays.toString(printArray)); });
         return possibleMoves; 
     }
+
+
+
+
+    /**
+     * Purpose : Calculate the moves for the bishop
+     * 
+     * 
+     * @param i : Xcoord position for the bishop
+     * @param j : YCoord position for the bishop 
+     * @param rookColor : Color of the bishop
+     *
+     * @return possibleMoves : ArrayList of arrays containg possible movible
+     *                         array position of the bishop
+     * 
+     */
+    protected ArrayList<int[]> calculateMovesForBishop(int i,int j,String rookColor){
+
+        ArrayList<int[]> possibleMoves = new ArrayList<int[]>(14);
+        int[] tempArray = {-1,-1};
+
+
+        //for northeast
+        int northIndex = i-1;
+        int eastIndex = j+1;
+		while(northIndex>-1 && eastIndex<8){
+            /* need to make a new array every time so that if value of elements change anytime through
+            out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[northIndex][eastIndex].isPieceHere() && boardArray[northIndex][eastIndex].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[northIndex][eastIndex].isPieceHere() && !boardArray[northIndex][eastIndex].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = eastIndex;
+                northIndex--;
+                eastIndex++;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = eastIndex;
+                northIndex--;
+                eastIndex++;
+                possibleMoves.add(tempArray);
+            }    
+        }
+
+
+
+       // for northwest
+       northIndex = i-1;
+       int westIndex  = j-1; 
+       while(northIndex>-1 && westIndex>-1){
+        /* need to make a new array every time so that if value of elements change anytime through
+        out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[northIndex][westIndex].isPieceHere() && boardArray[northIndex][westIndex].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[northIndex][westIndex].isPieceHere() && !boardArray[northIndex][westIndex].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = westIndex;
+                northIndex--;
+                westIndex--;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = westIndex;
+                northIndex--;
+                westIndex--;
+                possibleMoves.add(tempArray);
+            }
+        }  
+        
+
+        // for south East
+        int southIndex = i+1;
+        eastIndex  = j+1; 
+        while(southIndex<8 && eastIndex<8){
+            System.out.println(southIndex);
+         /* need to make a new array every time so that if value of elements change anytime through
+         out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[southIndex][eastIndex].isPieceHere() && boardArray[southIndex][eastIndex].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[southIndex][eastIndex].isPieceHere() && !boardArray[southIndex][eastIndex].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = southIndex;
+                tempArray[1] = eastIndex;
+                southIndex++;
+                eastIndex++;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = eastIndex;
+                southIndex++;
+                eastIndex++;
+                possibleMoves.add(tempArray);
+            }
+        }   
+        
+
+        // for south West
+        southIndex = i+1;
+        westIndex  = j-1; 
+        while(southIndex<8 && westIndex>-1){
+         /* need to make a new array every time so that if value of elements change anytime through
+         out the loop all other values of the array in arraylist will also change the pointer */
+            if(boardArray[southIndex][westIndex].isPieceHere() && boardArray[southIndex][westIndex].getPieceColor().equals(rookColor) )
+                break;
+            else if(boardArray[southIndex][westIndex].isPieceHere() && !boardArray[southIndex][westIndex].getPieceColor().equals(rookColor)){
+                tempArray = new int[2];
+                tempArray[0] = southIndex;
+                tempArray[1] = westIndex;
+                southIndex++;
+                westIndex--;
+                possibleMoves.add(tempArray);
+                break;
+            }else{ 
+                tempArray = new int[2];
+                tempArray[0] = northIndex;
+                tempArray[1] = westIndex;
+                southIndex++;
+                westIndex--;
+                possibleMoves.add(tempArray);
+            } 
+        }
+        return possibleMoves;
+    } 
+
+
+
+
+    /**
+     * Purpose : Calculate all the possible moves for the queen. 
+     *           Basically queen moves the step of bishop and rook all together  
+     * 
+     * @param i : X coord of the queen 
+     * @param j : y coord of the quwwn 
+     * @param queenColor : Color of the piece of queen 
+     * 
+     * 
+     * @return ArrayList of int array 
+     * 
+     */    
+    protected ArrayList<int[]> calculateMovesForQueen(int i, int j , String queenColor ){
+        ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
+
+        // ArrayList<int[]> rookMoves = calculateMovesForRook(i, j, queenColor);
+        // ArrayList<int[]> bishopMoves = calculateMovesForBishop(i, j, queenColor);
+        possibleMoves.addAll(calculateMovesForRook(i, j, queenColor));
+        possibleMoves.addAll(calculateMovesForBishop(i, j, queenColor));
+        return possibleMoves;
+    }
+
     /* main method for debugging  */
     /* public static void main(String[] args){ 
         GameBoard gb = new GameBoard();

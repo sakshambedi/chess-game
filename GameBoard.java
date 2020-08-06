@@ -60,65 +60,53 @@ public class GameBoard {
     protected void initiateDefaultPosition() {
         // for white pawn pieces
         // later one for black pieces
-        // for (int i = 0; i < 8; i++) {
-        //     boardArray[1][i].setChessPiece("pawn", "black");
-        //     boardArray[6][i].setChessPiece("pawn", "white");
-        // }
+        for (int i = 0; i < 8; i++) {
+            boardArray[1][i].setChessPiece("pawn", "black");
+            boardArray[6][i].setChessPiece("pawn", "white");
+        }
 
-        // //********* debugging  ************
-        // boardArray[5][0].setChessPiece("pawn","black");
-		// boardArray[5][1].setChessPiece("pawn","black");
-		// boardArray[5][6].setChessPiece("pawn","white");
-		// boardArray[5][5].setChessPiece("pawn","white");
-		// boardArray[2][0].setChessPiece("pawn","white");
-		// boardArray[2][1].setChessPiece("pawn","white");
+        // ************* placing white pieces first ***************
 
+        // for rook
+        boardArray[7][0].setChessPiece("rook", "white");
+        boardArray[7][7].setChessPiece("rook", "white");
 
-		// boardArray[6][7].resetTile(); 
+        // for horse
+        boardArray[7][1].setChessPiece("horse", "white");
+        boardArray[7][6].setChessPiece("horse", "white");
 
+        // for bishop
+        boardArray[7][2].setChessPiece("bishop", "white");
+        boardArray[7][5].setChessPiece("bishop", "white");
 
-        // // ************* placing white pieces first ***************
+        // queen
+        boardArray[7][3].setChessPiece("queen", "white");
 
-        // // for rook
-        // boardArray[7][0].setChessPiece("rook", "white");
-        // boardArray[7][7].setChessPiece("rook", "white");
+        // king
+        boardArray[7][4].setChessPiece("king", "white");
 
-        // // for horse
-        // boardArray[7][1].setChessPiece("horse", "white");
-        // boardArray[7][6].setChessPiece("horse", "white");
+        // *********** placing black pieces now ****************
 
-        // // for bishop
-        // boardArray[7][2].setChessPiece("bishop", "white");
-        // boardArray[7][5].setChessPiece("bishop", "white");
+        // for rook
+        boardArray[0][0].setChessPiece("rook", "black");
+        boardArray[0][7].setChessPiece("rook", "black");
 
-        // // queen
-        // boardArray[7][3].setChessPiece("queen", "white");
+        // for horses
+        boardArray[0][1].setChessPiece("horse", "black");
+        boardArray[0][6].setChessPiece("horse", "black");
 
-        // // king
-        // boardArray[7][4].setChessPiece("king", "white");
+        // for bishop
+        boardArray[0][2].setChessPiece("bishop", "black");
+        boardArray[0][5].setChessPiece("bishop", "black");
 
-        // // *********** placing black pieces now ****************
+        // queen
+        boardArray[0][4].setChessPiece("queen", "black");
 
-        // // for rook
-        // boardArray[0][0].setChessPiece("rook", "black");
-        // boardArray[0][7].setChessPiece("rook", "black");
-
-        // // for horses
-        // boardArray[0][1].setChessPiece("horse", "black");
-        // boardArray[0][6].setChessPiece("horse", "black");
-
-        // // for bishop
-        // boardArray[0][2].setChessPiece("bishop", "black");
-        // boardArray[0][5].setChessPiece("bishop", "black");
-
-        // // queen
-        // boardArray[0][4].setChessPiece("queen", "black");
-
-        // // king
-		// boardArray[0][3].setChessPiece("king", "black");
+        // king
+		boardArray[0][3].setChessPiece("king", "black");
 		
 		// debugging
-		initialiseTestCase();
+		// initialiseTestCase();
     }
 
 
@@ -129,20 +117,19 @@ public class GameBoard {
 	 * @return void 
 	 * 
 	  */
+	//   private void initialiseTestCase(){
+	// 	boardArray[4][4].setChessPiece("queen","white");
+	// 	boardArray[1][4].setChessPiece("pawn","black");
+    //     boardArray[5][4].setChessPiece("pawn","black");	
+    //     boardArray[4][1].setChessPiece("pawn","black");	
+    //     boardArray[4][6].setChessPiece("pawn","black");
+    //     boardArray[2][6].setChessPiece("pawn","black");
+    //     boardArray[7][6].setChessPiece("pawn","black");
+    //     boardArray[0][0].setChessPiece("pawn","black");
+    //     boardArray[5][3].setChessPiece("pawn","black");
 
-	  private void initialiseTestCase(){
-		boardArray[4][4].setChessPiece("bishop","white");
-		boardArray[1][4].setChessPiece("pawn","black");
-        boardArray[5][4].setChessPiece("pawn","black");	
-        boardArray[4][1].setChessPiece("pawn","black");	
-        boardArray[4][6].setChessPiece("pawn","black");
-        boardArray[2][6].setChessPiece("pawn","black");
-        boardArray[7][6].setChessPiece("pawn","black");
-        boardArray[0][0].setChessPiece("pawn","black");
-        boardArray[5][3].setChessPiece("pawn","black");
 
-
-	  }
+	//   }
 
 
     /**
@@ -232,9 +219,9 @@ public class GameBoard {
      */
     protected ArrayList<int[]> makeMove(int i, int j) {
 
-        int[] psuedoArray = {-1,-1};
-        ArrayList<int[]> psuedoList = new ArrayList<int[]>(
-                                        Arrays.asList(psuedoArray));
+        // int[] psuedoArray = {-1,-1};
+        // ArrayList<int[]> psuedoList = new ArrayList<int[]>(
+        //                                 Arrays.asList(psuedoArray));
 
         chessPiece pieceAtTheTile = boardArray[i][j].getPiece();
         String pieceColor = pieceAtTheTile.toStringTeamName();
@@ -246,8 +233,10 @@ public class GameBoard {
             return calculateMovesForBishop(i, j, pieceColor);
         else if(pieceAtTheTile instanceof Queen)
             return calculateMovesForQueen(i, j, pieceColor);
-        
-        return psuedoList;
+        else if(pieceAtTheTile instanceof Horse)
+            return calculateMovesForHorse(i, j, pieceColor);
+        else
+            return calculateMovesForKing(i, j, pieceColor);
     }
 
 
@@ -546,7 +535,6 @@ public class GameBoard {
         int southIndex = i+1;
         eastIndex  = j+1; 
         while(southIndex<8 && eastIndex<8){
-            System.out.println(southIndex);
          /* need to make a new array every time so that if value of elements change anytime through
          out the loop all other values of the array in arraylist will also change the pointer */
             if(boardArray[southIndex][eastIndex].isPieceHere() && boardArray[southIndex][eastIndex].getPieceColor().equals(rookColor) )
@@ -561,7 +549,7 @@ public class GameBoard {
                 break;
             }else{ 
                 tempArray = new int[2];
-                tempArray[0] = northIndex;
+                tempArray[0] = southIndex;
                 tempArray[1] = eastIndex;
                 southIndex++;
                 eastIndex++;
@@ -588,16 +576,68 @@ public class GameBoard {
                 break;
             }else{ 
                 tempArray = new int[2];
-                tempArray[0] = northIndex;
+                tempArray[0] = southIndex;
                 tempArray[1] = westIndex;
                 southIndex++;
                 westIndex--;
                 possibleMoves.add(tempArray);
             } 
         }
+
+
+        // possibleMoves.forEach(printArray -> {
+        //     System.out.print(Arrays.toString(printArray)); });
         return possibleMoves;
     } 
 
+
+
+    /**
+     * Purpose : Calculate the moves for the bishop
+     * @param i : Xcoord for the location of the horse 
+     * @param j : YCorrd for the location of the horse 
+     * @param horseColor : String value of the color of the horse
+     * 
+     * @return ArrayList of possible array location for the horse
+     *  
+     */
+    protected ArrayList<int []> calculateMovesForHorse(int i, int j, String horseColor){
+        ArrayList <int[]> possibleMoves = new ArrayList<int[]>(8); 
+        if(j-2>-1 && i-1>-1 &&(boardArray[i-1][j-2].isPieceHere() || (boardArray[i-1][j-2].isPieceHere() && !boardArray[i-1][j-2].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i-1, j-2};
+            possibleMoves.add(tempArray);
+        }
+        if(j-2>-1 && i+1<8 &&(boardArray[i+1][j-2].isPieceHere() || (boardArray[i+1][j-2].isPieceHere() && !boardArray[i+1][j-2].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i+1, j-2};
+            possibleMoves.add(tempArray);
+        }
+        if(i-2>-1 && j-1>-1 &&(boardArray[i-2][j-1].isPieceHere() || (boardArray[i-2][j-1].isPieceHere() && !boardArray[i-2][j-1].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i-1, j-1};
+            possibleMoves.add(tempArray);
+        }
+        if(i-2>-1 && j+1<8 &&(boardArray[i-2][j+1].isPieceHere() || (boardArray[i-2][j+1].isPieceHere() && !boardArray[i-2][j+1].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i-2, j+1};
+            possibleMoves.add(tempArray);
+        }
+        if(j+2<8 && i-1>-1 &&(boardArray[i-1][j+2].isPieceHere() || (boardArray[i-1][j+2].isPieceHere() && !boardArray[i-1][j+2].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i-1, j+2};
+            possibleMoves.add(tempArray);
+        }
+        if(j+2<8 && i+1<8 &&(boardArray[i+1][j+2].isPieceHere() || (boardArray[i+1][j+2].isPieceHere() && !boardArray[i+1][j+2].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i+1, j+2};
+            possibleMoves.add(tempArray);
+        }
+        if(i+2<8 && j-1>-1 &&(boardArray[i+2][j-1].isPieceHere() || (boardArray[i+2][j-1].isPieceHere() && !boardArray[i+2][j-1].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i+2, j-1};
+            possibleMoves.add(tempArray);
+        }
+        if(i+2<8 && j+1<8 &&(boardArray[i+2][j+1].isPieceHere() || (boardArray[i+2][j+1].isPieceHere() && !boardArray[i+2][j+1].getPieceColor().equals(horseColor) )) ){
+            int[] tempArray = {i+2, j+1};
+            possibleMoves.add(tempArray);
+        }
+        
+        return possibleMoves;
+    }
 
 
 
@@ -616,10 +656,63 @@ public class GameBoard {
     protected ArrayList<int[]> calculateMovesForQueen(int i, int j , String queenColor ){
         ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
 
-        // ArrayList<int[]> rookMoves = calculateMovesForRook(i, j, queenColor);
-        // ArrayList<int[]> bishopMoves = calculateMovesForBishop(i, j, queenColor);
         possibleMoves.addAll(calculateMovesForRook(i, j, queenColor));
         possibleMoves.addAll(calculateMovesForBishop(i, j, queenColor));
+        return possibleMoves;
+    }
+
+
+
+
+    /**
+     * Purpose : To calculate moves for the king on the chess Board 
+     * 
+     * @param i : X coordinate position of the king  
+     * @param j : Y Coordinate position of the king 
+     * @param kingColor : Color of the piece of the king 
+     * 
+     * @return Arraylist of int[] returning all the possible positions for the king to move  
+     * 
+     */
+    protected ArrayList<int[]> calculateMovesForKing(int i, int j, String kingColor){
+        ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
+        
+        // adding moves for the N first because we the north
+        int northIndex = i-1;
+        if(northIndex>-1 && (boardArray[northIndex][j].isPieceHere() || (boardArray[northIndex][j].isPieceHere() && !boardArray[northIndex][j].getPieceColor().equals(kingColor)  ))){
+            int[] tempArray = {northIndex,j};
+            possibleMoves.add(tempArray);
+        }
+
+        int eastIndex = j+1; 
+        if((northIndex>-1 && eastIndex<8) && (boardArray[northIndex][eastIndex].isPieceHere() || (boardArray[northIndex][eastIndex].isPieceHere() && !boardArray[northIndex][eastIndex].getPieceColor().equals(kingColor) ))){
+            int[] tempArray = {northIndex,eastIndex};
+            possibleMoves.add(tempArray);
+        }
+
+        int westIndex = j-1;
+        if((northIndex>-1 && westIndex>-1) && (boardArray[northIndex][westIndex].isPieceHere() || (boardArray[northIndex][westIndex].isPieceHere() && !boardArray[northIndex][westIndex].getPieceColor().equals(kingColor) ))){
+            int[] tempArray = {northIndex,westIndex};
+            possibleMoves.add(tempArray);
+        }
+
+
+        // adding moves for south 
+        int southIndex = i+1;
+        if(southIndex<8 && (boardArray[southIndex][j].isPieceHere() || (boardArray[southIndex][j].isPieceHere() && !boardArray[southIndex][j].getPieceColor().equals(kingColor)  ))){
+            int[] tempArray = {southIndex,j};
+            possibleMoves.add(tempArray);
+        }
+
+        if((southIndex<8 && eastIndex<8) && (boardArray[southIndex][eastIndex].isPieceHere() || (boardArray[southIndex][eastIndex].isPieceHere() && !boardArray[southIndex][eastIndex].getPieceColor().equals(kingColor)  ))){
+            int[] tempArray = {southIndex,eastIndex};
+            possibleMoves.add(tempArray);
+        }
+
+        if((southIndex<8 && westIndex>-1) && (boardArray[southIndex][westIndex].isPieceHere() || (boardArray[southIndex][westIndex].isPieceHere() && !boardArray[southIndex][westIndex].getPieceColor().equals(kingColor)  ))){
+            int[] tempArray = {southIndex,westIndex};
+            possibleMoves.add(tempArray);
+        }
         return possibleMoves;
     }
 

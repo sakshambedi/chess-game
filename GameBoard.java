@@ -293,11 +293,12 @@ public class GameBoard {
             if (!boardArray[i - 1][j].isPieceHere()) {
                 tempArray[0] = i - 1;
                 tempArray[1] = j;
-            }
+	    }
         }else{
-	    if(i==1 && !boardArray[i+2][j].isPieceHere())
+	    if(i==1 && !boardArray[i+2][j].isPieceHere()){
 		tempArray[0] = i+2;
 	   	tempArray[1] = j;
+	    }
             if(!boardArray[i+1][j].isPieceHere()){   
                 tempArray[0] = i + 1;
                 tempArray[1] = j;

@@ -296,15 +296,22 @@ public class GameBoard {
         int[] tempArray =  {-1,-1};
         
         if(pawnColor.equals("white")){
+	    // making 2 steps at a time when at the default position
+	    if (i==6 && !boardArray[i-2][j].isPieceHere()){
+	    	tempArray[0] = i-2;
+		tempArray[1] = j;
+	    }
             if (!boardArray[i - 1][j].isPieceHere()) {
                 tempArray[0] = i - 1;
-                tempArray[1] =j;
+                tempArray[1] = j;
             }
         }else{
+	    if(i==1 && !boardArray[i+2][j].isPieceHere())
+		tempArray[0] = i+2;
+	   	tempArray[1] = j;
             if(!boardArray[i+1][j].isPieceHere()){   
                 tempArray[0] = i + 1;
                 tempArray[1] = j;
-                // return tempArray;
             }      
         }
         return tempArray;      

@@ -1,13 +1,10 @@
 package chessPieces;
 
-//**********importing libraries*************** 
-import java.util.ArrayList;
 
 public class Queen extends chessPiece{
 
     protected String name;
     protected String teamColour;
-    private ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
 
     // constructors 
     public Queen(String name,String teamString){

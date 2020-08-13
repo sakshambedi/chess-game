@@ -214,29 +214,41 @@ public class GameBoard {
      * 
      * @return ArrayList of the possible moves.
      *           This returns array {-1,-1} for debugging.
-     *           Also causes IndexOutOfBound exception if used to make move.
+     *        
      * 
      */
-    protected ArrayList<int[]> makeMove(int i, int j) {
+    protected void makeMove(int i, int j, int[] finalPosition) {
 
-        // int[] psuedoArray = {-1,-1};
-        // ArrayList<int[]> psuedoList = new ArrayList<int[]>(
-        //                                 Arrays.asList(psuedoArray));
+        ArrayList<int[]> moveList = new ArrayList<int[]>();
+        Object[] finalArray = {finalPosition};
 
         chessPiece pieceAtTheTile = boardArray[i][j].getPiece();
         String pieceColor = pieceAtTheTile.toStringTeamName();
         if (pieceAtTheTile instanceof Pawn)
-            return calculateMovesForPawn(i, j, pieceColor);
+            moveList =  calculateMovesForPawn(i, j, pieceColor);
+            
         else if(pieceAtTheTile instanceof Rook)
-            return calculateMovesForRook(i, j, pieceColor);
+            moveList =  calculateMovesForRook(i, j, pieceColor);
         else if(pieceAtTheTile instanceof Bishop)
-            return calculateMovesForBishop(i, j, pieceColor);
+            moveList =calculateMovesForBishop(i, j, pieceColor);
         else if(pieceAtTheTile instanceof Queen)
-            return calculateMovesForQueen(i, j, pieceColor);
+            moveList = calculateMovesForQueen(i, j, pieceColor);
         else if(pieceAtTheTile instanceof Horse)
-            return calculateMovesForHorse(i, j, pieceColor);
+            moveList = calculateMovesForHorse(i, j, pieceColor);
         else
-            return calculateMovesForKing(i, j, pieceColor);
+            moveList = calculateMovesForKing(i, j, pieceColor);
+
+        for(int[] tempArray : moveList){
+            Object[] tempObject = {tempArray};
+            if (Arrays.deepEquals(tempObject,finalArray)){
+                String pieceNameAtStart = boardArray[i][j].getPieceName();
+                String pieceTeamNameAtStart = boardArray[i][j].getPieceColor();
+
+
+                boardArray[finalPosition[0]][finalPosition[1]].setChessPiece(pieceNameAtStart,pieceTeamNameAtStart); 
+                boardArray[i][j].resetTile();   
+            }
+        }
     }
 
 
@@ -256,8 +268,9 @@ public class GameBoard {
 
 
 
-        int[] moveArray = getPossibleMoveForPawn(i, j, pawnColor);
-        if(moveArray[0]!=-1 && moveArray[1]!=-1)  possibleMoves.add(moveArray);
+        ArrayList<int[]> moveArray = getPossibleMoveForPawn(i, j, pawnColor);
+        for(int[] moveList : moveArray )
+            if(moveList[0]!=-1 && moveList[1]!=-1)  possibleMoves.add(moveList);
 
         
         int[][] attackList = getAttackMoveForPawn(i, j, pawnColor);
@@ -277,34 +290,42 @@ public class GameBoard {
      * @param j : Y Coord location of the chess Piece for the 2d array
      * @param pawnColor : Color the pawn to represent the team
      * 
-     * @return tempArray : array of the movible location for the pawn depending
-     *                     upon the color
+     * @return possibleMoves : ArrayList of the movible location for the pawn depending
+     *                          upon the color
      * 
      */
-    private int[] getPossibleMoveForPawn(int i , int j, String pawnColor ){
+    private ArrayList<int[]> getPossibleMoveForPawn(int i , int j, String pawnColor ){
+        ArrayList<int []> possibleMoves = new ArrayList<int[]>(2);
         int[] tempArray =  {-1,-1};
         
         if(pawnColor.equals("white")){
 	    // making 2 steps at a time when at the default position
-	    if (i==6 && !boardArray[i-2][j].isPieceHere()){
-	    	tempArray[0] = i-2;
-		tempArray[1] = j;
-	    }
+	        if (i==6 && !boardArray[i-2][j].isPieceHere()){
+	    	    tempArray[0] = i-2;
+                tempArray[1] = j;
+                possibleMoves.add(tempArray);
+	        }
             if (!boardArray[i - 1][j].isPieceHere()) {
+                tempArray = new int[2];
                 tempArray[0] = i - 1;
                 tempArray[1] = j;
-	    }
+                possibleMoves.add(tempArray);
+            }
         }else{
-	    if(i==1 && !boardArray[i+2][j].isPieceHere()){
-		tempArray[0] = i+2;
-	   	tempArray[1] = j;
-	    }
-            if(!boardArray[i+1][j].isPieceHere()){   
+	        if(i==1 && !boardArray[i+2][j].isPieceHere()){
+		        tempArray[0] = i+2;
+                tempArray[1] = j;
+                possibleMoves.add(tempArray);
+	        }
+            if(!boardArray[i+1][j].isPieceHere()){
+                tempArray = new int[2];  
                 tempArray[0] = i + 1;
                 tempArray[1] = j;
+                possibleMoves.add(tempArray);
             }      
         }
-        return tempArray;      
+        System.out.println(Arrays.deepToString(possibleMoves.toArray()));
+        return possibleMoves;      
     }
 
 
@@ -723,6 +744,7 @@ public class GameBoard {
         }
         return possibleMoves;
     }
+
 
     /* main method for debugging  */
     /* public static void main(String[] args){ 

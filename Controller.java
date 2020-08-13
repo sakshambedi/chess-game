@@ -9,11 +9,11 @@
 
 
 // ********* Importing Libraries **************
-import java.util.Arrays;
+// import java.util.Arrays;
 import java.util.Scanner;
 import java.util.stream.Stream;
 import Player.*;
-import java.util.ArrayList;
+// import java.util.ArrayList;
 // import chessPieces.*;
 
 
@@ -63,7 +63,7 @@ public class Controller{
      */
     private static void initiateGamePlay() {
         int[][] mapCoords = new int[2][1];
-        while(currentPlayerCount <= 5){
+        while(true){
             try{
                 String[][] arrayOfCommands = askForInput();
                 // makeMove(arrayofCommand);
@@ -77,6 +77,8 @@ public class Controller{
                     makeMove(mapCoords);
                     increasePlayerCount();
                     switchPlayer();
+
+                    gb.printCLIchess();
                     // Arrays.deepToString(gb.getTileAt(mapCoords[1][0],mapCoords[1][1]).getMoves().toArray());
                 }
             }catch(NumberFormatException numException){
@@ -257,14 +259,11 @@ public class Controller{
      */
     private static void makeMove(int[][] arrayOfCommands){
         //  these are initial value of the chess pieces 
-        int i = arrayOfCommands[0][0];
-        int j = arrayOfCommands[0][1];
+        int[] initialPosition = arrayOfCommands[0];
+        int[] finalPosition = arrayOfCommands[1];
         
-        ArrayList<int[]> moveArray =  new ArrayList<int[]> ();
-        // System.out.println("Parameter Coords are : " + Arrays.deepToString(arrayOfCommands));
-        moveArray = gb.makeMove(i,j);  
-        System.out.println( Arrays.deepToString(moveArray.toArray()) );
-        // else System.out.println("Explicit move request !");
+        gb.makeMove(initialPosition[0],initialPosition[1], finalPosition);
+    
     }
 
 }

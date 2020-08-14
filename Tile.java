@@ -46,7 +46,7 @@ public class Tile {
     /**
      * Purpose :  return String x-coordinates and y-coordinates 
      */ 
-    protected String TileDetails(){
+    protected String Tile_Details(){
         return "X-value : " + xCoord + "; Y-value : "+ yCoord;
     }
 

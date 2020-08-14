@@ -11,7 +11,6 @@
  ******************************************************** 
 */
 
-
 // ---------------- importing libraries ------------
 import chessPieces.*;
 import java.util.ArrayList;
@@ -22,6 +21,14 @@ public class GameBoard {
 
     // initialising variabls
     private Tile[][] boardArray;
+    private static final String WHITE_STRING_NAME= "white";
+    private static final  String BLACK_STATIC_STRING_NAME ="black";
+
+    private static final String BISHOP_NAME = "bishop";
+    private static final String HORSE_NAME = "horse";
+    private static final String ROOK_NAME = "rook";
+    private static final String QUEEN_NAME = "queen";
+    private static final String KING_NAME = "king";
 
     /**
      * Purpose : create a 2d array
@@ -60,76 +67,55 @@ public class GameBoard {
     protected void initiateDefaultPosition() {
         // for white pawn pieces
         // later one for black pieces
+
+        
+
         for (int i = 0; i < 8; i++) {
-            boardArray[1][i].setChessPiece("pawn", "black");
-            boardArray[6][i].setChessPiece("pawn", "white");
+            boardArray[1][i].setChessPiece("pawn", BLACK_STATIC_STRING_NAME);
+            boardArray[6][i].setChessPiece("pawn", WHITE_STRING_NAME);
         }
 
         // ************* placing white pieces first ***************
 
         // for rook
-        boardArray[7][0].setChessPiece("rook", "white");
-        boardArray[7][7].setChessPiece("rook", "white");
+        boardArray[7][0].setChessPiece(ROOK_NAME, WHITE_STRING_NAME);
+        boardArray[7][7].setChessPiece(ROOK_NAME, WHITE_STRING_NAME);
 
         // for horse
-        boardArray[7][1].setChessPiece("horse", "white");
-        boardArray[7][6].setChessPiece("horse", "white");
+        boardArray[7][1].setChessPiece(HORSE_NAME,WHITE_STRING_NAME);
+        boardArray[7][6].setChessPiece(HORSE_NAME, WHITE_STRING_NAME);
 
         // for bishop
-        boardArray[7][2].setChessPiece("bishop", "white");
-        boardArray[7][5].setChessPiece("bishop", "white");
+        boardArray[7][2].setChessPiece(BISHOP_NAME, WHITE_STRING_NAME);
+        boardArray[7][5].setChessPiece(BISHOP_NAME, WHITE_STRING_NAME);
 
         // queen
-        boardArray[7][3].setChessPiece("queen", "white");
+        boardArray[7][3].setChessPiece(QUEEN_NAME, WHITE_STRING_NAME);
 
         // king
-        boardArray[7][4].setChessPiece("king", "white");
+        boardArray[7][4].setChessPiece(KING_NAME, WHITE_STRING_NAME);
 
         // *********** placing black pieces now ****************
 
         // for rook
-        boardArray[0][0].setChessPiece("rook", "black");
-        boardArray[0][7].setChessPiece("rook", "black");
+        boardArray[0][0].setChessPiece(ROOK_NAME, BLACK_STATIC_STRING_NAME);
+        boardArray[0][7].setChessPiece(ROOK_NAME, BLACK_STATIC_STRING_NAME);
 
         // for horses
-        boardArray[0][1].setChessPiece("horse", "black");
-        boardArray[0][6].setChessPiece("horse", "black");
+        boardArray[0][1].setChessPiece(HORSE_NAME, BLACK_STATIC_STRING_NAME);
+        boardArray[0][6].setChessPiece(HORSE_NAME, BLACK_STATIC_STRING_NAME);
 
         // for bishop
-        boardArray[0][2].setChessPiece("bishop", "black");
-        boardArray[0][5].setChessPiece("bishop", "black");
+        boardArray[0][2].setChessPiece(BISHOP_NAME, BLACK_STATIC_STRING_NAME);
+        boardArray[0][5].setChessPiece(BISHOP_NAME, BLACK_STATIC_STRING_NAME);
 
         // queen
-        boardArray[0][4].setChessPiece("queen", "black");
+        boardArray[0][4].setChessPiece(QUEEN_NAME, BLACK_STATIC_STRING_NAME);
 
         // king
-		boardArray[0][3].setChessPiece("king", "black");
+		boardArray[0][3].setChessPiece(KING_NAME, BLACK_STATIC_STRING_NAME);
 		
-		// debugging
-		// initialiseTestCase();
     }
-
-
-	/**
-	 * 
-	 * Purpose : Test situations for debugging 
-	 * 
-	 * @return void 
-	 * 
-	  */
-	//   private void initialiseTestCase(){
-	// 	boardArray[4][4].setChessPiece("queen","white");
-	// 	boardArray[1][4].setChessPiece("pawn","black");
-    //     boardArray[5][4].setChessPiece("pawn","black");	
-    //     boardArray[4][1].setChessPiece("pawn","black");	
-    //     boardArray[4][6].setChessPiece("pawn","black");
-    //     boardArray[2][6].setChessPiece("pawn","black");
-    //     boardArray[7][6].setChessPiece("pawn","black");
-    //     boardArray[0][0].setChessPiece("pawn","black");
-    //     boardArray[5][3].setChessPiece("pawn","black");
-
-
-	//   }
 
 
     /**
@@ -219,14 +205,13 @@ public class GameBoard {
      */
     protected void makeMove(int i, int j, int[] finalPosition) {
 
-        ArrayList<int[]> moveList = new ArrayList<int[]>();
+        ArrayList<int[]> moveList = new ArrayList<>();
         Object[] finalArray = {finalPosition};
 
         chessPiece pieceAtTheTile = boardArray[i][j].getPiece();
         String pieceColor = pieceAtTheTile.toStringTeamName();
         if (pieceAtTheTile instanceof Pawn)
-            moveList =  calculateMovesForPawn(i, j, pieceColor);
-            
+            moveList =  calculateMovesForPawn(i, j, pieceColor);    
         else if(pieceAtTheTile instanceof Rook)
             moveList =  calculateMovesForRook(i, j, pieceColor);
         else if(pieceAtTheTile instanceof Bishop)
@@ -264,7 +249,7 @@ public class GameBoard {
      *         movable blocks for the chessPiece
      */
     private ArrayList<int[]> calculateMovesForPawn(int i, int j, String pawnColor){
-        ArrayList<int[]> possibleMoves = new ArrayList<int[]>( );
+        ArrayList<int[]> possibleMoves = new ArrayList<>( );
 
 
 
@@ -295,10 +280,10 @@ public class GameBoard {
      * 
      */
     private ArrayList<int[]> getPossibleMoveForPawn(int i , int j, String pawnColor ){
-        ArrayList<int []> possibleMoves = new ArrayList<int[]>(2);
+        ArrayList<int []> possibleMoves = new ArrayList<>(2);
         int[] tempArray =  {-1,-1};
         
-        if(pawnColor.equals("white")){
+        if(pawnColor.equals(WHITE_STRING_NAME)){
 	    // making 2 steps at a time when at the default position
 	        if (i==6 && !boardArray[i-2][j].isPieceHere()){
 	    	    tempArray[0] = i-2;
@@ -345,7 +330,7 @@ public class GameBoard {
 		int[][] attackList = {{-1,-1},
 							{-1,-1}};
 
-        if (pawnColor.equals("white")) {
+        if (pawnColor.equals(WHITE_STRING_NAME)) {
             if( (j+1<=7) && (boardArray[i-1][j+1].isPieceHere() &&  !boardArray[i-1][j+1].getPieceColor().equals(pawnColor)) )
                 attackList[0][0] = i-1;
                 attackList[0][1] = j+1;    
@@ -380,7 +365,7 @@ public class GameBoard {
     public ArrayList<int[]> calculateMovesForRook(int i,int j,String rookColor){
 			
 		//assigning variables   
-		ArrayList<int[]> possibleMoves = new ArrayList<int[]>(14);
+		ArrayList<int[]> possibleMoves = new ArrayList<>(14);
         int[] tempArray = {-1,-1};
 
             // for going north
@@ -501,7 +486,7 @@ public class GameBoard {
      */
     protected ArrayList<int[]> calculateMovesForBishop(int i,int j,String rookColor){
 
-        ArrayList<int[]> possibleMoves = new ArrayList<int[]>(14);
+        ArrayList<int[]> possibleMoves = new ArrayList<>(14);
         int[] tempArray = {-1,-1};
 
 
@@ -613,9 +598,6 @@ public class GameBoard {
             } 
         }
 
-
-        // possibleMoves.forEach(printArray -> {
-        //     System.out.print(Arrays.toString(printArray)); });
         return possibleMoves;
     } 
 
@@ -631,7 +613,7 @@ public class GameBoard {
      *  
      */
     protected ArrayList<int []> calculateMovesForHorse(int i, int j, String horseColor){
-        ArrayList <int[]> possibleMoves = new ArrayList<int[]>(8); 
+        ArrayList <int[]> possibleMoves = new ArrayList<>(8); 
         if(j-2>-1 && i-1>-1 &&(boardArray[i-1][j-2].isPieceHere() || (boardArray[i-1][j-2].isPieceHere() && !boardArray[i-1][j-2].getPieceColor().equals(horseColor) )) ){
             int[] tempArray = {i-1, j-2};
             possibleMoves.add(tempArray);
@@ -704,7 +686,7 @@ public class GameBoard {
      * 
      */
     protected ArrayList<int[]> calculateMovesForKing(int i, int j, String kingColor){
-        ArrayList<int[]> possibleMoves = new ArrayList<int[]>();
+        ArrayList<int[]> possibleMoves = new ArrayList<>(8);
         
         // adding moves for the N first because we the north
         int northIndex = i-1;

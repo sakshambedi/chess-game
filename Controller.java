@@ -132,7 +132,7 @@ public class Controller{
     * Purpose :  method that asks for user input and then calls method to verify the 
     *            command entered by the user
     */
-    public static String[][] askForInput() throws  NumberFormatException{
+    public static String[][] askForInput(){
         System.out.print("Enter the command line for " + currentPlayer.getPlayerName() + ": ");
         String cmdEntered = scanInput.nextLine();
         String[] cmdEnteredArray = cmdEntered.split(" ");
@@ -185,11 +185,8 @@ public class Controller{
     private static String[] returnCoords(String chessCoords) { 
         String xCoord = String.valueOf(chessCoords.charAt(0));
         String yCoord = String.valueOf(chessCoords.charAt(1));
-        // System.out.println(xCoord + " " +yCoord);
         
-        String[] Coords = {String.valueOf(returnMapXIndex(yCoord)),String.valueOf(returnMapYIndex(xCoord))};
-
-        return Coords;
+        return new String[] {String.valueOf(returnMapXIndex(yCoord)),String.valueOf(returnMapYIndex(xCoord))};
     } 
 
 
@@ -220,7 +217,7 @@ public class Controller{
     */
     private static int returnMapXIndex(String xpos){
         // initiating variable
-        int tempInt = Integer.valueOf(xpos);
+        int tempInt = Integer.parseInt(xpos);
 
         if(tempInt>0 && tempInt<9) return 8-tempInt;
         else    return -1;
